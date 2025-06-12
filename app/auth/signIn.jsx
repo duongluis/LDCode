@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
-import { Text, View } from 'react-native';
-import Colors from '../../constant/Colors';
+import { Dimensions, Text, TouchableOpacity, View } from 'react-native';
+import Colors from './../../constant/Colors';
 import styles from './../index.jsx';
 
 export default function SignIn() {
@@ -19,11 +19,16 @@ export default function SignIn() {
         </TouchableOpacity>
 
         <TouchableOpacity style={[styles.button,{
-            paddingTop:100
+            paddingTop:100,
+            borderColor:Colors.Black
         }]}
-            onPress={()=> router.push('')}
-        >
-            <Text>Sign In with Google </Text>
+            onPress={()=>{ 
+                console.log("width : " + Dimensions.get('screen').Width)
+                router.push('/auth/createAccount')
+
+            }
+    }>
+            <Text>Sign In as guest </Text>
         </TouchableOpacity>
     </View>
 )}
