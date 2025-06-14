@@ -4,10 +4,11 @@ import { useState } from 'react';
 import { Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { db } from '../../config/firebaseConfig';
 import Colors from './../../constant/Colors';
+
 export default function CreateAccount() {
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
 
     const router = useRouter();
     const handleTextChange = (newText) => {
@@ -19,14 +20,15 @@ export default function CreateAccount() {
     };
 
     const CheckNull = () => {
-        if (!text || text.trim() === '') {
+        if (!name || name.trim() === '') {
             Alert.alert('Error, Please fill your name');
-            return;
+            return false;
         }
+        return true;
     };
 
- const saveUser = async () => {
-        if (!validateInputs()) return;
+    const saveUser = async () => {
+        if (!CheckNull()) return;
 
         try {
             const userId = Date.now().toString();
@@ -44,39 +46,39 @@ export default function CreateAccount() {
             Alert.alert('Lỗi', 'Không thể lưu dữ liệu: ' + error.message);
         }
     };
-return (
-    <View style={{
-        display: 'center',
-        alignItems: 'center',
-        paddingTop: 100,
-        flex: 1,
-        backgroundColor: Colors.White
-    }}>
-        <Image source={require('./../../assets/images/LDcode.png')}
-            style={{
-                width: '100%',
-                height: 300,
-                marginTop: 70
-            }} />
-        <Text style={{
-            fontSize: 30,
-            fontFamily: 'outfit-bold',
-            color: Colors.Black,
-            textAlign: 'center'
-        }}>Thong tin ca nhan</Text>
+    return (
+        <View style={{
+            display: 'center',
+            alignItems: 'center',
+            paddingTop: 100,
+            flex: 1,
+            backgroundColor: Colors.White
+        }}>
+            <Image source={require('./../../assets/images/LDcode.png')}
+                style={{
+                    width: '100%',
+                    height: 300,
+                    marginTop: 70
+                }} />
+            <Text style={{
+                fontSize: 30,
+                fontFamily: 'outfit-bold',
+                color: Colors.Black,
+                textAlign: 'center'
+            }}>Thong tin ca nhan</Text>
 
-        <TextInput placeholder='Full Name' value={text} onChangeText={handleTextChange} style={styles.textInput} />
-        <TextInput placeholder='Email (optional)' style={styles.textInput} />
+            <TextInput placeholder='Full Name' value={name} onChangeText={handleTextChange} style={styles.textInput} />
+            <TextInput placeholder='Email (optional)' style={styles.textInput} />
 
-        <TouchableOpacity style={styles.button}
-            onPress={() => {
-               CheckNull();
-            }}>
-            <Text style={styles.buttonText}>Nop</Text>
+            <TouchableOpacity style={styles.button}
+                onPress={() => {
+                    saveUser();
+                }}>
+                <Text style={styles.buttonText}>Nop</Text>
 
-        </TouchableOpacity>
-    </View>
-)
+            </TouchableOpacity>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({

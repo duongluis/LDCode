@@ -1,7 +1,6 @@
 import { initializeApp } from 'firebase/app';
 
 // Optionally import the services that you want to use
-// import {...} from 'firebase/auth';
 // import {...} from 'firebase/database';
 import { getFirestore } from 'firebase/firestore';
 // import {...} from 'firebase/functions';
@@ -11,7 +10,7 @@ import { getFirestore } from 'firebase/firestore';
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: 'ldcode-992002.firebaseapp.com',
-  databaseURL: 'https://ldcode-992002.firebaseio.com',
+  // databaseURL: 'https://ldcode-992002.firebaseio.com',
   projectId: 'ldcode-992002',
 //   storageBucket: 'ldcode-992002.firebasestorage.app',
   messagingSenderId: 'sender-id',
@@ -20,6 +19,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+// const auth = getAuth(authDomain);
 export const db = getFirestore(app);
 
 // For more information on how to access Firebase in your project,

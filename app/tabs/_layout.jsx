@@ -6,9 +6,7 @@ export default function TabLayout() {
     <TabLayout.Screen name="main" />
     <TabLayout.Screen name="course" />
     <TabLayout.Screen name="task" />
-    <TabLayout.Screen name="profile" />
-
+    <TabLayout.Screen name="profile"/>
 </Tabs>
-
   )
 }
