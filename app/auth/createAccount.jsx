@@ -1,18 +1,21 @@
 import { useRouter } from 'expo-router';
+import { doc, setDoc } from 'firebase/firestore';
 import { useState } from 'react';
-import { Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View, useWindowDimensions } from 'react-native';
+import { Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { db } from '../../config/firebaseConfig';
 import Colors from './../../constant/Colors';
 export default function CreateAccount() {
 
-    const [text, setText] = useState('');
-    const { width, height } = useWindowDimensions();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+
     const router = useRouter();
     const handleTextChange = (newText) => {
         if (newText.trim() === '') {
             Alert.alert('Error, Please fill your name');
             return;
         }
-        setText(newText);
+        setName(newText);
     };
 
     const CheckNull = () => {
@@ -22,6 +25,25 @@ export default function CreateAccount() {
         }
     };
 
+ const saveUser = async () => {
+        if (!validateInputs()) return;
+
+        try {
+            const userId = Date.now().toString();
+
+            await setDoc(doc(db, 'users', userId), {
+                name: name.trim(),
+                email: email.trim(),
+                createdAt: new Date().toISOString()
+            });
+
+            Alert.alert('Thành công', 'Đã tạo người dùng thành công');
+            setName('');
+            setEmail('');
+        } catch (error) {
+            Alert.alert('Lỗi', 'Không thể lưu dữ liệu: ' + error.message);
+        }
+    };
 return (
     <View style={{
         display: 'center',
