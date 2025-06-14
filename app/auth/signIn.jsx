@@ -14,27 +14,38 @@ export default function SignIn() {
             flex: 1,
             blackgroundColor: Colors.Default
         }}>
-            <TouchableOpacity style={styles.button}>
-                <Text>Sign In with Google </Text>
-            </TouchableOpacity>
 
-            {/* <TouchableOpacity style={[styles.button,{
-            paddingTop:100,
-            borderColor:Colors.Black
-        }]}
-            onPress={()=>{ 
-                console.log(db)
-                router.push('/auth/createAccount')
-            }
-    }>
-            <Text>Sign In as guest </Text>
-        </TouchableOpacity> */}
+            <Image source={require('./../../assets/images/LDcode.png')}
+                style={{
+                    width: '100%',
+                    height: 300,
+                    marginTop: 70
+                }} />
+            <Text style={{
+                fontSize: 30,
+                fontFamily: 'outfit-bold',
+                color: Colors.Black,
+                textAlign: 'center'
+            }}>Dang nhap</Text>
+
+            <TextInput placeholder='Email' value={email} style={styles.textInput} />
+            <TextInput placeholder='Password' value={password} secureTextEntry={true} style={styles.textInput} />
+
             <TouchableOpacity style={styles.button}
-            onPress={router.push('/auth/signUp')}
-            >
-                <Text>Sign Up </Text>
+                onPress={() => {
+                    // router.push('./../tabs/main')
+                    router.push('./../tabs/main')
+                    // saveUser();
+                }}>
+                <Text style={styles.buttonText}>Sign In</Text>
 
             </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.button}>
+                {/* chen icon vao sau sign in */}
+                <Text>Sign In with Google </Text> 
+            </TouchableOpacity>
+
         </View>
     )
 }

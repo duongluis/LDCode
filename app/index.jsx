@@ -47,7 +47,7 @@ export default function Index() {
         <TouchableOpacity style={styles.button}
           onPress={() => {
             console.log("Move to Sign In screen")
-            router.push('/auth/signIn')
+            router.push('/auth/signUp')
           }}>
           <Text style={[styles.buttonText, {
             color: Colors.Default,
@@ -60,7 +60,7 @@ export default function Index() {
           borderWidth: 1,
           borderColor: Colors.White
         }]}
-        onPress={()=>router.push('/auth/createAccount')} 
+        onPress={()=>router.push('/auth/signIn')} 
         >
           <Text style={[styles.buttonText, { color: Colors.Black }]}>Have Used App Before ?</Text>
         </TouchableOpacity>

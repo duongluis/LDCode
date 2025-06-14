@@ -38,6 +38,7 @@ return (
 
             <TouchableOpacity style={styles.button}
                 onPress={() => {
+                    // router.push('./../tabs/main')
                     router.push('./../tabs/main')
                     // saveUser();
                 }}>
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     textInput: {
-        minWidth: 150,
+        minWidth: 200,
         maxWidth: 300,
         textInput: '100%',
         paddingTop: 10,
