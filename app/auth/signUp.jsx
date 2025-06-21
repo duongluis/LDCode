@@ -1,17 +1,53 @@
+import { UserDetailContext } from '@/context/UserDetailContext';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
-import { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { useContext, useState } from 'react';
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { auth, db } from '../../config/firebaseConfig';
 import Colors from '../../constant/Colors';
 
 
 export default function signUp() {
 
-        const [email, setEmail] = useState();
-        const [password, setPassword] = useState();
-        const [username, setUsername] = useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [username, setUsername] = useState();
+    const { userDetail, setUserDetail } = useContext(UserDetailContext);
 
-return (
+    const CreateNewAccount = () => {
+        createUserWithEmailAndPassword(auth, email, password)
+            .then(async (resp) => {
+                const user = resp.user;
+                console.log(user);
+
+                await SaveUser(user);
+
+            })
+            .catch(e => {
+                Alert.alert(e.message)
+            })
+    }
+
+    const SaveUser = async (user) => {
+        const data = {
+            name: username,
+            email: email,
+            password: password,
+            member: false,
+            uid: user?.uid
+        }
+
+        await setDoc(doc(db, 'users', email), data)
+
+        userDetail=data
+        setUserDetail(userDetail);
+
+        router.push('/auth/signIn')
+    }
+
+    return (
         <View style={{
             display: 'center',
             alignItems: 'center',
@@ -32,14 +68,14 @@ return (
                 textAlign: 'center'
             }}>Dang ki tai khoan</Text>
 
-            <TextInput placeholder='User Name' value={username} style={styles.textInput} />
-            <TextInput placeholder='Email' value={email}  style={styles.textInput} />
-            <TextInput placeholder='Password' value={password} secureTextEntry={true} style={styles.textInput} />
+            <TextInput placeholder='User Name' value={username} onChangeText={(value) => setUsername(value)} style={styles.textInput} />
+            <TextInput placeholder='Email' value={email} onChangeText={(value) => setEmail(value)} style={styles.textInput} />
+            <TextInput placeholder='Password' value={password} onChangeText={(value) => setPassword(value)} style={styles.textInput} />
 
             <TouchableOpacity style={styles.button}
                 onPress={() => {
-                    // router.push('./../tabs/main')
-                    router.push('./../tabs/main')
+                    CreateNewAccount();
+
                     // saveUser();
                 }}>
                 <Text style={styles.buttonText}>Sign Up</Text>
@@ -51,7 +87,7 @@ return (
 
 const styles = StyleSheet.create({
     button: {
-        padding: 15,
+        padding: 10,
         backgroundColor: Colors.Default,
         marginTop: 50,
         borderRadius: 15

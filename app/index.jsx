@@ -1,9 +1,27 @@
+import { auth, db } from '@/config/firebaseConfig';
+import { UserDetailContext } from '@/context/UserDetailContext';
 import { useRouter } from "expo-router";
+import { onAuthStateChanged } from "firebase/auth";
+import React, { useContext } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Colors from "../constant/Colors";
+
+
 export default function Index() {
 
   const router = useRouter();
+  const { userDetail, setUserDetail } = useContext(UserDetailContext);
+
+
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      console.log("user " + user.email);
+      const result = await getDoc(doc(db, 'users', user?.email));
+      console.log("checking legit : " + result.data);
+      setUserDetail(result.data)
+      router.replace('/tabs/main')
+    }
+  })
 
   return (
     <View
@@ -55,12 +73,12 @@ export default function Index() {
         </TouchableOpacity>
 
         <TouchableOpacity style={[styles.button, {
-          
+
           backgroundColor: Colors.Default,
           borderWidth: 1,
           borderColor: Colors.White
         }]}
-        onPress={()=>router.push('/auth/signIn')} 
+          onPress={() => router.push('/auth/signIn')}
         >
           <Text style={[styles.buttonText, { color: Colors.Black }]}>Have Used App Before ?</Text>
         </TouchableOpacity>
