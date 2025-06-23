@@ -20,7 +20,6 @@ export default function SignIn() {
     const signInByClick = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then(async (resp) => {
-                // Signed in 
                 const user = resp.user
 
                 console.log(user)
@@ -47,7 +46,6 @@ export default function SignIn() {
     return (
         <View style={{
             display: 'center',
-            // justifyContent: 'center',
             alignItems: 'center',
             paddingTop: 100,
             flex: 1,
@@ -76,7 +74,6 @@ export default function SignIn() {
                 disabled={loading}
                 onPress={() => {
                     signInByClick()
-                    // router.push('./../tabs/main')
                 }}>
                 {!loading ?
                     <Text style={styles.buttonText}>Sign In</Text> :
@@ -86,7 +83,6 @@ export default function SignIn() {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button}>
-                {/* chen icon vao sau sign in */}
                 <Text>Sign In with Google </Text>
             </TouchableOpacity>
 

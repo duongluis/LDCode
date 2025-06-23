@@ -11,12 +11,11 @@ export default function Header() {
             justifyContent:'space-between',
             
         }}>
-
             <View>
                 <Text style={{
                     fontFamily: 'outfit-bold',
                     fontSize: 25,
-                    //loi khong hien thi ten 
+    
                 }}>Hello, {userDetail?.name}</Text>
 
                 <Text style={{
@@ -24,7 +23,6 @@ export default function Header() {
                     fontSize: 17
                 }}>Let's start!</Text>
             </View>
-            {/* cho nay de chen icon */}
 
         </View>
     )

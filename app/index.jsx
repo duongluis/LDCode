@@ -30,7 +30,6 @@ export default function Index() {
         backgroundColor: Colors.White
       }}>
 
-      {/* cho nay chen icon */}
       <Image source={require('./../assets/images/LDcode.png')}
         style={{
           width: '100%',
@@ -84,7 +83,7 @@ export default function Index() {
         </TouchableOpacity>
 
       </View>
-    // </View>
+    </View>
   );
 }
 

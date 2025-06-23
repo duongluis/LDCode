@@ -75,8 +75,6 @@ export default function signUp() {
             <TouchableOpacity style={styles.button}
                 onPress={() => {
                     CreateNewAccount();
-
-                    // saveUser();
                 }}>
                 <Text style={styles.buttonText}>Sign Up</Text>
 

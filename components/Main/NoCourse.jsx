@@ -1,7 +1,11 @@
-import React from 'react'
-import { Text, View } from 'react-native'
+import { useRouter } from 'expo-router';
+import React from 'react';
+import { Text, View } from 'react-native';
+import Button from '../Shared/Button';
+
 
 export default function NoCourse() {
+  const router = useRouter();
   return (
     <View style={{
         marginTop:40,
@@ -9,14 +13,14 @@ export default function NoCourse() {
         alignItems:'center',
     }}>
       <Text style={{
-        fontFamily: 'outfiit-bold',
+        fontFamily: 'outfit-bold',
         fontSize:25,
         textAlign:'center'
         }}>You don't have any course</Text>
 
 
-        <Button text={'+ Create New Course'}/>
-        <Button text={'Explore Existing Course'}/>
+        <Button Text={'+ Add New Course'} onPress={()=>router.push('./addCourse')}/>
+ 
     </View>
   )
 }
