@@ -16,11 +16,11 @@ export default function NoCourse() {
         fontFamily: 'outfit-bold',
         fontSize:25,
         textAlign:'center'
+        
         }}>You don't have any course</Text>
 
+        <Button text={'+ Add New Course'} onPress={()=>router.push('/addCourse')}/>
 
-        <Button Text={'+ Add New Course'} onPress={()=>router.push('./addCourse')}/>
- 
     </View>
   )
 }

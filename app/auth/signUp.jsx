@@ -20,8 +20,6 @@ export default function signUp() {
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (resp) => {
                 const user = resp.user;
-                console.log(user);
-
                 await SaveUser(user);
 
             })
@@ -40,9 +38,9 @@ export default function signUp() {
         }
 
         await setDoc(doc(db, 'users', email), data)
-
-        userDetail=data
-        setUserDetail(userDetail);
+        
+        console.log("user detail : ", data);
+        setUserDetail(data);
 
         router.push('/auth/signIn')
     }

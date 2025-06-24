@@ -1,7 +1,8 @@
 import { auth, db } from '@/config/firebaseConfig';
 import { UserDetailContext } from '@/context/UserDetailContext';
 import { useRouter } from "expo-router";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
 import React, { useContext } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Colors from "../constant/Colors";
@@ -15,10 +16,8 @@ export default function Index() {
 
   onAuthStateChanged(auth, async (user) => {
     if (user) {
-      console.log("user " + user.email);
       const result = await getDoc(doc(db, 'users', user?.email));
-      console.log("checking legit : " + result.data);
-      setUserDetail(result.data)
+      setUserDetail(result.data())
       router.replace('/tabs/main')
     }
   })

@@ -22,9 +22,7 @@ export default function SignIn() {
             .then(async (resp) => {
                 const user = resp.user
 
-                console.log(user)
                 await getUserDetail();
-
                 setLoading(false);
                 router.replace('./../tabs/main')
 
@@ -39,8 +37,7 @@ export default function SignIn() {
 
     const getUserDetail = async () => {
         const result = await getDoc(doc(db, 'users', email))
-        console.log(result.data())
-        setUserDetail(result.data)
+        setUserDetail(result.data())
     }
 
     return (

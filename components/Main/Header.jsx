@@ -15,9 +15,9 @@ export default function Header() {
                 <Text style={{
                     fontFamily: 'outfit-bold',
                     fontSize: 25,
-    
-                }}>Hello, {userDetail?.name}</Text>
 
+                }}>Hello, {userDetail?.name}</Text>
+                {console.log("userDetail", userDetail)}
                 <Text style={{
                     fontFamily: 'outfit',
                     fontSize: 17

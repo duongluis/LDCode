@@ -14,9 +14,10 @@ export default function Button({ text, type = "fill", onPress }) {
       }}>
       <Text style={{
         fontFamily: 'outfit-bold',
-        fontSize:25,
+        fontSize: 25,
         backgroundColor: type == 'fill' ? Colors.White : Colors.Default,
       }}>{text}</Text>
+
     </TouchableOpacity>
   )
 }
