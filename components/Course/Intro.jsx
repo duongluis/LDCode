@@ -19,7 +19,7 @@ export default function Intro({ course }) {
             </Pressable>
             <Image source={ImageAsset[course?.banner_image]}
                 style={styles.banner_image} />
-            <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 20 }}>
+            <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 20, justifyContent:'center', }}>
                 {course?.title}
             </Text>
 
@@ -34,8 +34,7 @@ export default function Intro({ course }) {
                 router.push({
                     pathname: '/chapterView',
                     params: {
-                        chapterParam: JSON.stringify(course?.chapters[0].chapter_id),
-                        docId: course?.id,
+                        chapterParam: JSON.stringify(course?.chapters[0]),
                         chapterIndex: 0
                     }
                 })} />

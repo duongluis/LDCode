@@ -1,40 +1,38 @@
-// import { UserDetailContext } from '@/context/UserDetailContext';
-// import React, { useContext, useState } from 'react';
+
 import Colors from '@/constant/Colors';
-import { ImageAsset } from '@/constant/Option';
+import { PracticeOption } from '@/constant/Option';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function CourseList({ courseList }) {
+export default function TaskList({ taskList }) {
     const router = useRouter();
+    console.log("taskList: ", taskList);
     return (
         <View >
             <Text style={{ fontSize: 24, fontWeight: 'bold'}}>
-                Courses list
+                TaskList
             </Text>
             <View style={{ flexDirection: 'row', marginTop: 10 }}>
                 <FlatList
-                    data={courseList}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
+                    data={taskList}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
                         <TouchableOpacity
                             key={item.id}
                             onPress={() => 
                                 router.push({
-                                    pathname:'/courseView',
-                                    params: { courseParam: JSON.stringify(item) }
+                                    pathname:'/taskView',
+                                    params: { taskParam: JSON.stringify(item) }
                             })}
                             style={styles.courseContainer}>
-                            <Image source={ImageAsset[item?.banner_image]} style={styles.banner_image} />
+                            <Image source={PracticeOption[1].image} style={styles.banner_image} />
                             <Text>{item?.title}</Text>
-                            <Text>{item?.chapters.length} chapters</Text>
+                            <Text>{item?.tasks.length} exercises</Text>
 
                         </TouchableOpacity>
                     )}
-                />
+                /> 
             </View>
         </View>
     )

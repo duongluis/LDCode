@@ -12,6 +12,7 @@ export default function addCourse() {
     const [isLoading, setIsLoading] = useState(false);
     const [userInput, setUserInput] = useState('');
     const [course, setCourse] = useState(null);
+    const [task, setTask] = useState(null);
     const { userDetail, setUserDetail } = useContext(UserDetailContext);
 
     const handleGenerate = async () => {
@@ -24,16 +25,18 @@ export default function addCourse() {
         try {
             const generatedCourse = await generateCourseContent(userInput);
             setCourse(generatedCourse);
-
-            // console.log("test 1 :", typeof(JSON.parse(generatedCourse)) )
+            setTask(JSON.parse(generatedCourse).courses[0].exercises)
+            console.log("test 1 :", JSON.parse(generatedCourse).courses[0].exercises)
 
             // generatedCourse.forEach(async (element) => {
             //     await saveCourse(element);
 
             // });
+            
 
 
             await saveCourse(JSON.parse(generatedCourse));
+            await saveTask(JSON.parse(generatedCourse));
             
             Alert.alert('Thành công', 'Khóa học đã được tạo thành công!');
 
@@ -148,6 +151,8 @@ export default function addCourse() {
                 description: firstCourse.description,
                 createdAt: courseId,
                 createdBy: userDetail?.email,
+                progress: firstCourse?.progress,
+                
 
 
                 // banner_image: "/banner1.png",
@@ -174,6 +179,32 @@ export default function addCourse() {
             Alert.alert('Lỗi', 'Không thể lưu khóa học: ' + error.message);
         }
     };
+
+    const saveTask= async(courseData)=>{
+            try {
+            const courseId = Date.now().toString();
+            const firstCourse = courseData?.courses[0];
+        
+            const data = {
+                banner_image: "/task.png",
+                id: firstCourse.id || courseId,
+                title: firstCourse?.title,
+                tasks:firstCourse?.excercises,
+                description: firstCourse?.description,
+                createdAt: courseId,
+                createdBy: userDetail?.email,
+            }
+            console.log("data when save task : ", data)
+            await setDoc(doc(db, 'tasks', data.title), data);
+            // });
+
+            setUserInput('');
+            setCourse(null);
+        } catch (error) {
+            console.error('Save Error:', error);
+            Alert.alert('Lỗi', 'Không thể lưu bai tap: ' + error.message);
+        }
+    }
 
     return (
         <View style={{
@@ -206,19 +237,21 @@ export default function addCourse() {
 
 const styles = StyleSheet.create({
     button: {
-        padding: 15,
-        backgroundColor: Colors.White,
-        marginTop: 20,
-        borderRadius: 10
+    padding: 15,
+        width: '100%',
+        borderRadius: 15,
+        marginTop: 15,
+        backgroundColor: Colors.Default,
     },
     buttonText: {
         fontSize: 30,
         fontWeight: 'bold',
-        textAlign: 'center'
+        textAlign: 'center',
+        color:Colors.White
     },
     textInput: {
         minWidth: 200,
-        maxWidth: 300,
+        maxWidth: 600,
         textInput: '100%',
         paddingTop: 10,
         borderWidth: 1,

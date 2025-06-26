@@ -1,19 +1,146 @@
 import HeaderView from '@/components/Main/HeaderView';
-import { useLocalSearchParams } from 'expo-router';
+import Button from '@/components/Shared/Button';
+import { db } from '@/config/firebaseConfig';
+import Colors from '@/constant/Colors';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { doc, getDoc, runTransaction } from 'firebase/firestore';
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import * as Progress from 'react-native-progress';
 
 export default function ChapterDetail() {
-  const {chapterParam,docId,chapterIndex} = useLocalSearchParams();
-  const [progress,setProgress] = useState(0);
-  const chapters = JSON.parse(chapterParam);
+  const router = useRouter();
+  const { chapterParam, chapterIndex } = useLocalSearchParams();
+  const { progress, setProgress } = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const chapter = JSON.parse(chapterParam);
+
+  const GetProgress = (currentPage) => {
+    const prec = (currentPage / chapter.lessons.length);
+    return prec;
+  }
+
+  console.log("chapter : ", typeof(chapter));
+
+  const fixFormConsole = (consoleText) => {
+    const formatedText = consoleText.split('; ').join(';\n').split(' { ').join('\n{\n');
+    return formatedText;
+  }
+
+  const FinishLesson = async () => {
+    try {
+      await runTransaction(db, async (transaction) => {
+        const docRef = doc(db, "courses", chapter.doc_id);
+        const docSnap = await transaction.get(docRef);
+
+        console.log(docSnap);
+        if (!docSnap.exists()) throw "Document không tồn tại";
+
+        const chapters = docSnap.data() || [];
+        console.log(chapters ," ",typeof(chapters))
+        // chapters[chapterIndex] = updatedChapter;
+
+        // transaction.update(docRef, { chapters });
+      });
+    }
+    catch (error) {
+      console.log("error : ", error)
+    }
+  }
+
+  const Test=()=> {
+    const docRef = doc(db, "courses", chapter.doc_id);
+        const docSnap =  getDoc(docRef);
+
+        console.log("doc snapshot : ",docSnap);
+        if (!docSnap.exists()) throw "Document không tồn tại";
+
+        const chapters = docSnap.data() || [];
+        console.log(chapters ," ",typeof(chapters))
+  }
+
+    return (
+      <View>
+        <HeaderView text={"Chapter  View"} />
+
+        <Progress.Bar progress={GetProgress(currentPage)}
+          width={Dimensions.get('screen').width * 0.95}
+          height={10}
+          color={Colors.Default} />
+
+        {/* <Text>Here is chapter detail</Text> */}
 
 
-  return (
-    <View>
-      <Progress percent = {progress} height={}/>
-      <HeaderView text={"Chapter  View"}/>
-      <Text>Here is chapter detail</Text>
-    </View>
-  )
-}
+        <View style={{
+          marginTop: 30,
+          width: '100%',
+
+        }}>
+          <Text style={{
+            fontSize: 30,
+            fontFamily: 'outfit-bold',
+            color: Colors.Black,
+            textAlign: 'center'
+
+          }}>
+            {chapter?.lessons[currentPage].lesson_title}
+          </Text>
+
+          <Text style={styles.text}> {chapter?.lessons[currentPage].lesson_text}</Text>
+
+          <Text style={styles.title}>
+            Console
+          </Text>
+
+          <Text style={styles.consoleText}>
+            {fixFormConsole(chapter?.lessons[currentPage].example.console)}
+          </Text>
+
+          <Text style={styles.title
+
+
+          }> Output</Text>
+
+          <Text style={styles.consoleText}>
+            {chapter?.lessons[currentPage].example.output}
+          </Text>
+
+          {currentPage < chapter.lessons.length - 1 ?
+            <Button text={'Next'} onPress={() => { { setCurrentPage(currentPage + 1) } }} /> :
+            <Button text={'Finish'} onPress={() => { Test() }} />
+          }
+
+        </View>
+
+      </View>
+    )
+  }
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'space-between',
+    },
+    text: {
+      marginTop: 15,
+      fontSize: 20,
+      fontFamily: 'arial',
+      marginRight: 5
+    },
+    title: {
+      fontSize: 20,
+      fontFamily: 'outfit-bold',
+      color: Colors.Black,
+    },
+    consoleText: {
+      minHeight: 100,
+      margin: 'auto',
+      width: '100%',
+      backgroundColor: Colors.Black,
+      color: Colors.LightGray,
+      marginTop: 15,
+      fontSize: 20,
+      fontFamily: 'arial',
+      justifyContent: 'flex-start',
+    }
+  })

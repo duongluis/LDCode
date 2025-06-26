@@ -1,24 +1,41 @@
+import TaskList from "@/components/Main/TaskList";
+import { db } from "@/config/firebaseConfig";
+import { UserDetailContext } from "@/context/UserDetailContext";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useContext, useEffect, useState } from "react";
+import { View } from "react-native";
 
 
 export default function task() {
-  // router= useRouter();
-  // return (
-  //   <View>
-  //     <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Task</Text>
-  //     <FlatList
-  //       data={[task]}
-  //       keyExtractor={(item) => item.id}
-  //       showsVerticalScrollIndicator={false}
-  //       renderItem={({ item }) => (
-  //         <TouchableOpacity onPress={()=> router.push{
+  const [taskList, setTaskList] = useState([]);
+  const { userDetail, setUserDetail } = useContext(UserDetailContext);
 
-  //         }}>
-  //           <Image source={ ImageAsset[item.image] } style={{ width: 100, height: 100 }} />
-  //           <Text>{item.title}</Text>
-  //         </View>
-  //         </TouchableOpacity>
-  //       )}
-  //     />
-  //   </View>
-  // )
+  useEffect(() => {
+    console.log("use Effect working");
+    userDetail && GetTaskList()
+  }, [userDetail]);
+
+
+  const GetTaskList = async () => {
+    // console.log("user da hoan thanh courselist :", userDetail?.name);
+    const tasks = [];
+    const q = query(collection(db, 'tasks'), where("createdBy", "==", userDetail?.email));
+    const querySnapshot = await getDocs(q);
+    // setTaskList(querySnapshot);
+    querySnapshot.forEach(doc => {
+      tasks.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+
+
+    });
+      setTaskList(tasks);
+  }
+
+  return (
+    <View>
+      <TaskList taskList={taskList} />
+    </View>
+  )
 }

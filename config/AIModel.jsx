@@ -35,16 +35,16 @@ export const generateCourseContent = async (topic) => {
 
         let jsonString = response.data.candidates[0].content.parts[0].text;
 
-        // console.log("json string : ", jsonString);
+        // // console.log("json string : ", jsonString);
 
-        // Remove markdown if present
-        jsonString = jsonString.replace(/^```json|```$/g, '').trim();
+        // // Remove markdown if present
+        // jsonString = jsonString.replace(/^```json|```$/g, '').trim();
 
-        // Fix common JSON issues
-        jsonString = jsonString
-            .replace(/'/g, '"')
-            .replace(/,\s*]/g, ']')
-            .replace(/,\s*}/g, '}');
+        // // Fix common JSON issues
+        // jsonString = jsonString
+        //     .replace(/'/g, '"')
+        //     .replace(/,\s*]/g, ']')
+        //     .replace(/,\s*}/g, '}');
 
         return jsonString;
     } catch (error) {

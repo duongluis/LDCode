@@ -16,6 +16,7 @@ export default function Button({ text, type = "fill", onPress }) {
         fontFamily: 'outfit-bold',
         fontSize: 25,
         color:Colors.White,
+        textAlign:'center'
         // backgroundColor: type == 'fill' ? Colors.White : Colors.Default,
       }}>{text}</Text>
 
