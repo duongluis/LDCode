@@ -39,7 +39,7 @@ export default function signUp() {
 
         await setDoc(doc(db, 'users', email), data)
         
-        console.log("user detail : ", data);
+        // console.log("user detail : ", data);
         setUserDetail(data);
 
         router.push('/auth/signIn')

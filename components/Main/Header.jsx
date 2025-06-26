@@ -9,6 +9,7 @@ export default function Header() {
             disply:'flex',
             flexDirection:'row',
             justifyContent:'space-between',
+            marginBottom: 30,
             
         }}>
             <View>

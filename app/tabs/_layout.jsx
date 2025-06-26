@@ -1,13 +1,35 @@
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { Tabs } from 'expo-router';
 import React from 'react';
 
 export default function TabLayout() {
   return (
-<Tabs>
-    <Tabs.Screen name="main"/>
-    <Tabs.Screen name="course" />
-    <Tabs.Screen name="task" />
-    <Tabs.Screen name="profile"/>
-</Tabs>
+    <Tabs>
+      <Tabs.Screen name="main"
+        options={{
+          tabBarIcon: (color,size) => (
+            <Ionicons name="home" size={24} color={color} />
+          )
+        }} />
+      <Tabs.Screen name="course"
+        options={{
+          tabBarIcon: (color,size) => (
+            <AntDesign name="book" size={24} color={color} />
+          )
+        }} />
+      <Tabs.Screen name="task"
+        options={{
+          tabBarIcon: (color,size) => (
+            <AntDesign name="checkcircleo" size={24} color={color} />
+          )
+        }} />
+      <Tabs.Screen name="profile"
+        options={{
+          tabBarIcon: (color,size) => (
+            <AntDesign name="user" size={24} color={color} />
+          )
+        }} />
+    </Tabs>
   )
 }

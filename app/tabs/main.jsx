@@ -3,6 +3,7 @@ import Header from '@/components/Main/Header';
 import NoCourse from '@/components/Main/NoCourse';
 import { db } from '@/config/firebaseConfig';
 import Colors from '@/constant/Colors';
+import PracticeSection from '@/constant/PracticeSection';
 import { UserDetailContext } from '@/context/UserDetailContext';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
@@ -13,13 +14,13 @@ export default function main() {
     const { userDetail, setUserDetail } = useContext(UserDetailContext);
 
     useEffect(() => {
-        console.log("use Effect working");
+        // console.log("use Effect working");
         userDetail && GetCourseList()
     }, [userDetail]);
 
     const GetCourseList = async () => {
 
-        console.log("user da hoan thanh courselist :", userDetail?.name);
+        // console.log("user da hoan thanh courselist :", userDetail?.name);
         const courses = [];
         const q = query(collection(db, 'courses'), where("createdBy", "==", userDetail?.email));
         const querySnapshot = await getDocs(q);
@@ -32,7 +33,7 @@ export default function main() {
 
         });
         setCoursesList(courses);
-        
+
     }
 
     return (
@@ -43,7 +44,13 @@ export default function main() {
             backgroundColor: Colors.White
         }}>
             <Header />
-            {coursesList?.length === 0 ? <NoCourse /> : <CourseList courseList={coursesList} />}
+            {coursesList?.length === 0 ? <NoCourse />
+                :
+                <View>
+                    <PracticeSection />
+                    <CourseList courseList={coursesList} />
+                </View>
+            }
         </View>
     )
 }

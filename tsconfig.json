@@ -12,6 +12,8 @@
     "**/*.js",
     "**/*.jsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-, "app/index.jsx"  ]
+    "expo-env.d.ts",
+    "app/index.jsx",
+    "components/Course"
+  ]
 }
