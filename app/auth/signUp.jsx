@@ -29,12 +29,14 @@ export default function signUp() {
     }
 
     const SaveUser = async (user) => {
+        const courses =[]
         const data = {
             name: username,
             email: email,
             password: password,
             member: false,
-            uid: user?.uid
+            uid: user?.uid,
+            courses: courses
         }
 
         await setDoc(doc(db, 'users', email), data)

@@ -9,29 +9,36 @@ import { View } from "react-native";
 export default function task() {
   const [taskList, setTaskList] = useState([]);
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
-
+  const [loading, setLoading] = useState(false);
+ 
   useEffect(() => {
-    console.log("use Effect working");
-    userDetail && GetTaskList()
-  }, [userDetail]);
+  console.log("use effect working");
+    GetTaskList();
+  }, [GetTaskList]);
 
 
   const GetTaskList = async () => {
     // console.log("user da hoan thanh courselist :", userDetail?.name);
+    try{
     const tasks = [];
-    const q = query(collection(db, 'tasks'), where("createdBy", "==", userDetail?.email));
+    const q = query(collection(db, 'courses'), where("createdBy", "==", userDetail?.email));
     const querySnapshot = await getDocs(q);
     // setTaskList(querySnapshot);
     querySnapshot.forEach(doc => {
       tasks.push({
         id: doc.id,
-        ...doc.data(),
+        title:doc.data().title,
+        exercises:doc.data().exercises,
       });
-
-
     });
-      setTaskList(tasks);
+    setTaskList(tasks);
   }
+catch(error){
+
+} finally{
+  setLoading(false)
+}
+}
 
   return (
     <View>

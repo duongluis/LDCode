@@ -9,10 +9,10 @@ export default function Chapters(course) {
   const router = useRouter();
   // console.log(" chapters : ", course?.course?.chapters);
 
-const isChapterCompleted = ()=>{
-  const isCompleted = course?.course.chapter.find(item=> item.status).where("status","==","")
-  console.log("chapter Done : ", course?.course.chapter.find((item)=> item.index))
-  return isCompleted ? True:False;
+const isChapterCompleted = (index)=>{
+  const isCompleted = course?.course?.completed_chapters?.includes(index.toString());
+  console.log("checking : ",course?.course?.completed_chapters);
+  return isCompleted ? true:false;
 }
   return (
     <View >
@@ -39,9 +39,9 @@ const isChapterCompleted = ()=>{
               style={styles.courseContainer}>
               <Text style={styles.textButton}> {index + 1}. {item?.chapter_title}</Text>
 
-              {isChapterCompleted?
-                <Ionicons name="arrow-forward" size={32} color={Colors.White} />:
-                <AntDesign name="checkcircle" size={24} color={Colors.White} />
+              {!isChapterCompleted(index)?
+                <Ionicons name="arrow-forward" size={32} color={Colors.White}/>:
+                <AntDesign name="checkcircle" size={24} color={Colors.Black} />
               }
             </TouchableOpacity>
           )}

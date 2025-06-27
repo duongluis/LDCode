@@ -61,11 +61,12 @@ export default {
         ],
         }
   ],
-  "excercises": [
+  "exercises": [
+    "status":incompleted/completed,
+    "doc_id":course_id
     {
-      "status": incompleted / completed,
-      "id": "exercise_id"
-        "quest": "short question ",
+      "id": "exercise id"
+        "quest": "long question",
       "answer": [
         {
           answer_text: "answer_1"
@@ -84,7 +85,7 @@ export default {
               correct: "true/false"
         }
       ],
-      "id": "exercise_id"
+      "id": "exercise id"
             "quest": "short question ",
       "answer": [
         {

@@ -25,18 +25,30 @@ export default function addCourse() {
         try {
             const generatedCourse = await generateCourseContent(userInput);
             setCourse(generatedCourse);
-            setTask(JSON.parse(generatedCourse).courses[0].exercises)
-            console.log("test 1 :", JSON.parse(generatedCourse).courses[0].exercises)
+
+            console.log("test 1 :", JSON.parse(generatedCourse)[0])
 
             // generatedCourse.forEach(async (element) => {
             //     await saveCourse(element);
 
             // });
+
+            // const firstCourse = JSON.parse(generatedCourse)[0];
+            // const data = {
+            //     banner_image: "/banner1.png",
+            //     id: firstCourse?.id ,
+            //     title: firstCourse?.title,
+            //     chapters: firstCourse?.chapters,
+            //     exercises: firstCourse?.exercises,
+            //     description: firstCourse?.description,
+            //     createdAt: firstCourse?.id ,
+            //     createdBy: userDetail?.email,
+            //     progress: firstCourse?.progress,
+            //     completed_chapters : firstCourse?.completed_chapter,
+            // }
+            // console.log("data : ",data)
             
-
-
-            await saveCourse(JSON.parse(generatedCourse));
-            await saveTask(JSON.parse(generatedCourse));
+            await saveCourse(JSON.parse(generatedCourse)[0]);
             
             Alert.alert('Thành công', 'Khóa học đã được tạo thành công!');
 
@@ -55,7 +67,7 @@ export default function addCourse() {
     const saveCourse = async (courseData) => {
         try {
             const courseId = Date.now().toString();
-            const firstCourse = courseData?.courses[0];
+            const firstCourse = courseData;
             const chapter = [
                 {
                     "courses": [
@@ -143,33 +155,24 @@ export default function addCourse() {
             // chapter[0].courses.forEach(async (element) => {
             //     console.log("element : ", element.index);
 
+
+            console.log("firstCourse : ", firstCourse);
             const data = {
                 banner_image: "/banner1.png",
-                id: firstCourse.id || courseId,
-                title: firstCourse.title,
-                chapters: firstCourse.chapters,
-                description: firstCourse.description,
+                id: courseData?.id || courseId,
+                title: courseData?.title,
+                chapters: courseData?.chapters,
+                exercises: courseData?.exercises,
+                description: courseData?.description,
                 createdAt: courseId,
                 createdBy: userDetail?.email,
-                progress: firstCourse?.progress,
+                progress: courseData?.progress,
+                completed_chapters : courseData?.completed_chapter,
                 
-
-
-                // banner_image: "/banner1.png",
-                // id: courseId ,
-                // chapters: element,
-                // title: element.title,
-                // createdAt: new Date().toISOString(),
-                // createdBy: userDetail?.email,
-
-
-                // title: courseData.title,
-                // description: courseData.description,
-                // chapters: courseData.chapters,
-                // imageUrl: courseData.imageUrl,
             }
 
-            await setDoc(doc(db, 'courses', data.title), data);
+
+            await setDoc(doc(db, 'courses', courseData?.id.toString()), data);
             // });
 
             setUserInput('');
@@ -180,31 +183,31 @@ export default function addCourse() {
         }
     };
 
-    const saveTask= async(courseData)=>{
-            try {
-            const courseId = Date.now().toString();
-            const firstCourse = courseData?.courses[0];
+    // const saveTask= async(courseData)=>{
+    //         try {
+    //         const courseId = Date.now().toString();
+    //         const firstCourse = courseData?.courses[0];
         
-            const data = {
-                banner_image: "/task.png",
-                id: firstCourse.id || courseId,
-                title: firstCourse?.title,
-                tasks:firstCourse?.excercises,
-                description: firstCourse?.description,
-                createdAt: courseId,
-                createdBy: userDetail?.email,
-            }
-            console.log("data when save task : ", data)
-            await setDoc(doc(db, 'tasks', data.title), data);
-            // });
+    //         const data = {
+    //             banner_image: "/task.png",
+    //             id: firstCourse.id || courseId,
+    //             title: firstCourse?.title,
+    //             tasks:firstCourse?.excercises,
+    //             description: firstCourse?.description,
+    //             createdAt: courseId,
+    //             createdBy: userDetail?.email,
+    //         }
+    //         console.log("data when save task : ", data)
+    //         await setDoc(doc(db, 'tasks', data.title), data);
+    //         // });
 
-            setUserInput('');
-            setCourse(null);
-        } catch (error) {
-            console.error('Save Error:', error);
-            Alert.alert('Lỗi', 'Không thể lưu bai tap: ' + error.message);
-        }
-    }
+    //         setUserInput('');
+    //         setCourse(null);
+    //     } catch (error) {
+    //         console.error('Save Error:', error);
+    //         Alert.alert('Lỗi', 'Không thể lưu bai tap: ' + error.message);
+    //     }
+    // }
 
     return (
         <View style={{
