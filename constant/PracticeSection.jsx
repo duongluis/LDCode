@@ -9,7 +9,7 @@ export default function PracticeSection() {
             <Text style={{
                 fontSize: 24, fontWeight: 'bold'
 
-            }}>Practice</Text>
+            }}>Bài tập và câu hỏi</Text>
             <View style={{ flexDirection: 'row' }}>
                 <FlatList
                     data={PracticeOption}

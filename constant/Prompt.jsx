@@ -16,7 +16,7 @@ export default {
 - Each lesson has example by text
 - each chapter has example and console and output dont have plain text 
   - max characters is 7000 characters
-  - su dung 
+  - sử dụng ngôn ngữ tiếng việt làm đầu ra ngoại trừ phần console và output
  - Create data in this EXACT JSON format:
 
   [

@@ -8,8 +8,8 @@ export default function course() {
   return (
     <View>
       <Text>course</Text>
-      <Text> This will be the screen for course , where we have some courses for languages</Text>
-              <Button text={'+ Add New Course'} onPress={() => router.push('/addCourse')}/>
+      <Text> Đây là nơi hiểnn thị danh sách các khóa học</Text>
+              <Button text={'+ Thêm khóa học'} onPress={() => router.push('/addCourse')}/>
     </View>
   )
 }

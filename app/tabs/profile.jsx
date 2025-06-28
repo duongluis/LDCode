@@ -23,7 +23,7 @@ export default function profile() {
       <HeaderView text={"Profile"} />
       <TouchableOpacity onPress={() => { }}>
         <View style={styles.container}>
-        <Text>User Setting</Text>
+        <Text>Thông tin cá nhân</Text>
         
         </View>
       </TouchableOpacity>
@@ -32,7 +32,7 @@ export default function profile() {
         styles.container}
         onPress={() => { }}>
 
-        <Text >Progress</Text>
+        <Text >Tiến trình</Text>
 
       </TouchableOpacity>
 <View style={{
