@@ -167,8 +167,7 @@ export default function addCourse() {
                 createdAt: courseId,
                 createdBy: userDetail?.email,
                 progress: courseData?.progress,
-                completed_chapters : courseData?.completed_chapter,
-                
+                completed_chapters : courseData?.completed_chapter, 
             }
 
 
@@ -179,7 +178,7 @@ export default function addCourse() {
             setCourse(null);
         } catch (error) {
             console.error('Save Error:', error);
-            Alert.alert('Lỗi', 'Không thể lưu khóa học: ' + error.message);
+            Alert.alert('Error: ' + error.message);
         }
     };
 

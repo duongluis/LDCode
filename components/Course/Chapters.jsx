@@ -9,11 +9,11 @@ export default function Chapters(course) {
   const router = useRouter();
   // console.log(" chapters : ", course?.course?.chapters);
 
-const isChapterCompleted = (index)=>{
-  const isCompleted = course?.course?.completed_chapters?.includes(index.toString());
-  console.log("checking : ",course?.course?.completed_chapters);
-  return isCompleted ? true:false;
-}
+  const isChapterCompleted = (index) => {
+    const isCompleted = course?.course?.completed_chapters?.includes(index.toString());
+    console.log("checking : ", course?.course?.completed_chapters);
+    return isCompleted ? true : false;
+  }
   return (
     <View >
       <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 10 }}>
@@ -39,8 +39,8 @@ const isChapterCompleted = (index)=>{
               style={styles.courseContainer}>
               <Text style={styles.textButton}> {index + 1}. {item?.chapter_title}</Text>
 
-              {!isChapterCompleted(index)?
-                <Ionicons name="arrow-forward" size={32} color={Colors.White}/>:
+              {!isChapterCompleted(index) ?
+                <Ionicons name="arrow-forward" size={32} color={Colors.White} /> :
                 <AntDesign name="checkcircle" size={24} color={Colors.Black} />
               }
             </TouchableOpacity>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     margin: 10,
-    flexDirection:'row',
+    flexDirection: 'row',
     alignItems: 'left',
     borderRadius: 10,
     width: "100%",

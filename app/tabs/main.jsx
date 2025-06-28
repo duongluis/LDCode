@@ -14,12 +14,10 @@ export default function main() {
     const { userDetail, setUserDetail } = useContext(UserDetailContext);
 
     useEffect(() => {
-        // console.log("use Effect working");
-        userDetail && GetCourseList()
+      userDetail && GetCourseList()
     }, [userDetail]);
 
     const GetCourseList = async () => {
-
         // console.log("user da hoan thanh courselist :", userDetail?.name);
         const courses = [];
         const q = query(collection(db, 'courses'), where("createdBy", "==", userDetail?.email));

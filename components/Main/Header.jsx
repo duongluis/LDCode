@@ -17,12 +17,12 @@ export default function Header() {
                     fontFamily: 'outfit-bold',
                     fontSize: 25,
 
-                }}>Hello, {userDetail?.name}</Text>
+                }}>Chào mừng bạn {userDetail?.name}</Text>
                 {console.log("userDetail", userDetail)}
                 <Text style={{
                     fontFamily: 'outfit',
-                    fontSize: 17
-                }}>Let's start!</Text>
+                    fontSize: 20
+                }}>Hãy bắt đầu học thôi !</Text>
             </View>
 
         </View>

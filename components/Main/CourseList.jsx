@@ -11,7 +11,7 @@ export default function CourseList({ courseList }) {
     return (
         <View >
             <Text style={{ fontSize: 24, fontWeight: 'bold'}}>
-                Courses list
+                Khóa học đang tham gia
             </Text>
             <View style={{ flexDirection: 'row', marginTop: 10 }}>
                 <FlatList

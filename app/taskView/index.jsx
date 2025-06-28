@@ -2,7 +2,7 @@ import HeaderView from '@/components/Main/HeaderView';
 import Colors from '@/constant/Colors';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 
 export default function taskView() {
@@ -11,10 +11,12 @@ export default function taskView() {
   const { progress, setProgress } = useState(0);
   const [currentTask, setCurrentTask] = useState(0);
   const task = JSON.parse(taskParam);
+  const exercises = task.exercises[0];
+  console.log("task : ",exercises);
 
   // console.log("bai tap : ", task);
   const GetProgress = (currentTask) => {
-    const prec = currentTask / task?.exercises?.length;
+    const prec = currentTask / exercises.exercises?.length;
     return prec;
   }
 
@@ -26,18 +28,19 @@ export default function taskView() {
   // console.log("the loai : ", (getDoc(doc(db, 'courses', chapter?.doc_id.toString()))).data().completed_chapters)
   const FinishLesson = () => {
     console.log("lesson finished");
+     Alert.alert("You finished the task. Well done!")
     router.back();
   }
 
   const Checking = (access) => {
     if (access=="true") {
       {
-        currentTask < task?.exercises.length - 1 ?
+        currentTask < exercises?.exercises.length - 1 ?
           setCurrentTask(currentTask + 1) :
           FinishLesson()
       }
     } else if(access=="false") {
-    Alert.Alert("Looks like you need to learn again");
+    Alert.alert("Có vẻ như bạn cần học thêm , hãy quay lại bài học và đọc kĩ hơn");
       router.back();
     }
   }
@@ -45,22 +48,22 @@ export default function taskView() {
 
     return (
       <View>
-        <HeaderView text={"Task View"} />
+        <HeaderView text={"Chi tiết bài tập "} />
 
         <Progress.Bar progress={GetProgress(currentTask)}
           width={Dimensions.get('screen').width * 0.95}
           height={10}
           color={Colors.Default} />
 
+        <Text style={styles.title}>{exercises?.exercises[currentTask].id}</Text>
 
-        <Text style={styles.title}>{task?.exercises[currentTask].id}</Text>
-
-        <Text style={styles.text}>{task?.exercises[currentTask].quest}</Text>
+        <Text style={styles.text}>{exercises?.exercises[currentTask].quest}</Text>
         <FlatList
-          data={task?.exercises[currentTask].answer}
+          data={exercises?.exercises[currentTask].answer}
           keyExtractor={item => item.id}
           renderItem={({ item: answer }) => (
             <TouchableOpacity
+              key={answer}
               style={styles.Button}
               onPress={() => {
                 {
@@ -73,7 +76,6 @@ export default function taskView() {
           )
           }
         />
-
       </View >
     );
   };

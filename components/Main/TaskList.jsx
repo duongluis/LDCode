@@ -7,10 +7,10 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 
 export default function TaskList({ taskList }) {
     const router = useRouter();
-console.log("TaskList : ",taskList[0]?.exercises?.length || 0);
+console.log("TaskList : ",taskList[0]?.exercises[0].exercises.length || 0);
 
 const GetLengthObject =async ()=> {
-    return await taskList[0].exercises.length;
+    return await taskList[0]?.exercises[0].exercises.length;
 }
 
     return (

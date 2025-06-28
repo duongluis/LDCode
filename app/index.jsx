@@ -14,13 +14,14 @@ export default function Index() {
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
 
 
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      const result = await getDoc(doc(db, 'users', user?.email));
-      setUserDetail(result.data())
+  onAuthStateChanged(auth, async (users) => {
+    if (users) {
+      const result = await getDoc(doc(db, 'users', users?.email));
+      setUserDetail(result.data());
       router.replace('/tabs/main')
     }
   })
+
 
   return (
     <View
