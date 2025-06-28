@@ -7,32 +7,32 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 
 export default function TaskList({ taskList }) {
     const router = useRouter();
-console.log("TaskList : ",taskList[0]?.exercises[0].exercises.length || 0);
+console.log("TaskList : ",taskList[0]?.exercises.length|| 0);
 
 const GetLengthObject =async ()=> {
-    return await taskList[0]?.exercises[0].exercises.length;
+    return await taskList[0]?.exercises.length;
 }
 
     return (
-        <View >
+        <View>
             <Text style={{ fontSize: 24, fontWeight: 'bold'}}>
-                TaskList
+                Danh sách bài tập
             </Text>
             <View style={{ flexDirection: 'row', marginTop: 10 }}>
                 <FlatList
                     data={taskList}
                     keyExtractor={(item) => item.id}
-                    renderItem={({ item ,index}) => (
+                    renderItem={({ item }) => (
                         <TouchableOpacity
-                            key={item.id}
+                            key={item}
                             onPress={() => 
                                 router.push({
                                     pathname:'/taskView',
                                     params: { 
                                     taskParam: JSON.stringify(item),
-                                    doc_id:item.id,
-                                    index:index,
-                                     }
+                                    // doc_id:item.id,
+                                    // index:index,
+                                    }
                             })}
                             style={styles.courseContainer}>
                             <Image source={PracticeOption[1].image} style={styles.banner_image} />

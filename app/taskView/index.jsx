@@ -7,11 +7,11 @@ import * as Progress from 'react-native-progress';
 
 export default function taskView() {
   const router = useRouter();
-  const { taskParam, doc_id, index } = useLocalSearchParams();
+  const { taskParam} = useLocalSearchParams();
   const { progress, setProgress } = useState(0);
   const [currentTask, setCurrentTask] = useState(0);
   const task = JSON.parse(taskParam);
-  const exercises = task.exercises[0];
+  const exercises = task.exercises;
   console.log("task : ",exercises);
 
   // console.log("bai tap : ", task);
@@ -28,19 +28,19 @@ export default function taskView() {
   // console.log("the loai : ", (getDoc(doc(db, 'courses', chapter?.doc_id.toString()))).data().completed_chapters)
   const FinishLesson = () => {
     console.log("lesson finished");
-     Alert.alert("You finished the task. Well done!")
+     Alert.alert("Chúc mừng bạn đã hoàn thành bài tập của khóa học!")
     router.back();
   }
 
   const Checking = (access) => {
     if (access=="true") {
       {
-        currentTask < exercises?.exercises.length - 1 ?
+        currentTask < exercises?.length - 1 ?
           setCurrentTask(currentTask + 1) :
           FinishLesson()
       }
     } else if(access=="false") {
-    Alert.alert("Có vẻ như bạn cần học thêm , hãy quay lại bài học và đọc kĩ hơn");
+    Alert.alert("Có vẻ như bạn cần học thêm , hãy quay lại bài học");
       router.back();
     }
   }
@@ -55,15 +55,15 @@ export default function taskView() {
           height={10}
           color={Colors.Default} />
 
-        <Text style={styles.title}>{exercises?.exercises[currentTask].id}</Text>
+        <Text style={styles.title}>{exercises[currentTask]?.id}</Text>
 
-        <Text style={styles.text}>{exercises?.exercises[currentTask].quest}</Text>
+        <Text style={styles.title}>{exercises[currentTask]?.quest}</Text>
         <FlatList
-          data={exercises?.exercises[currentTask].answer}
+          data={exercises[currentTask]?.answer}
           keyExtractor={item => item.id}
           renderItem={({ item: answer }) => (
             <TouchableOpacity
-              key={answer}
+              // key={answer}
               style={styles.Button}
               onPress={() => {
                 {
@@ -103,7 +103,8 @@ export default function taskView() {
       marginTop: 15,
       fontSize: 20,
       fontFamily: 'arial',
-      marginRight: 5
+      marginRight: 5,
+      color:Colors.White,
     },
     title: {
       fontSize: 20,
