@@ -37,7 +37,7 @@ const GetLengthObject =async ()=> {
                             style={styles.courseContainer}>
                             <Image source={PracticeOption[1].image} style={styles.banner_image} />
                             <Text>{item.title}</Text>
-                            <Text>{GetLengthObject()} exercises</Text>
+                            <Text>{GetLengthObject()} bài</Text>
 
                         </TouchableOpacity>
                     )}

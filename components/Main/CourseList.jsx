@@ -30,7 +30,7 @@ export default function CourseList({ courseList }) {
                             style={styles.courseContainer}>
                             <Image source={ImageAsset[item?.banner_image]} style={styles.banner_image} />
                             <Text>{item?.title}</Text>
-                            <Text>{item?.chapters.length} chapters</Text>
+                            <Text>{item?.chapters.length} chương</Text>
 
                         </TouchableOpacity>
                     )}

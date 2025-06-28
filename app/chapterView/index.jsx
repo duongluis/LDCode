@@ -82,8 +82,8 @@ export default function ChapterDetail() {
           {chapter?.lessons[currentPage].example.output}
         </Text>
         {currentPage < chapter.lessons.length - 1 ?
-          <Button text={'Next'} onPress={() => { { setCurrentPage(currentPage + 1) } }} /> :
-          <Button text={'Finish'} onPress={() => { FinishLesson() }} />
+          <Button text={'Tiếp'} onPress={() => { { setCurrentPage(currentPage + 1) } }} /> :
+          <Button text={'Hoàn thành'} onPress={() => { FinishLesson() }} />
         }
 
       </View>
