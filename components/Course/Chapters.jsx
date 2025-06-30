@@ -17,7 +17,7 @@ export default function Chapters(course) {
   return (
     <View >
       <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 10 }}>
-        Chapters :
+        Danh sách chương:
       </Text>
       <View style={{ flexDirection: 'row', marginTop: 10 }}>
         <FlatList

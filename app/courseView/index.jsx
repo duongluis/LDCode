@@ -13,7 +13,7 @@ export default function CourseView() {
 
     return (
         <View>
-            <HeaderView text={"Course View"}/>
+            <HeaderView text={"Khóa học"}/>
             <Intro course={course} />
             <Chapters course={course} />
 
