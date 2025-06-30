@@ -50,7 +50,7 @@ export default function Index() {
           fontFamily: 'outfit-bold',
           color: Colors.White,
           textAlign: 'center'
-        }}>Welcome to LDCode</Text>
+        }}>Chào mừng đến với LDCode</Text>
 
         <Text style={{
           paddingTop: 150,
@@ -59,7 +59,7 @@ export default function Index() {
           color: Colors.White,
           textAlign: 'center',
           marginBottom: 50
-        }}>Please Click start to begin </Text>
+        }}>Vui lòng nhấn nút bên dưới để bắt đầu </Text>
 
         <TouchableOpacity style={styles.button}
           onPress={() => {
@@ -68,7 +68,7 @@ export default function Index() {
           }}>
           <Text style={[styles.buttonText, {
             color: Colors.Default,
-          }]}>Get started</Text>
+          }]}>Bắt đầu</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={[styles.button, {
@@ -79,7 +79,7 @@ export default function Index() {
         }]}
           onPress={() => router.push('/auth/signIn')}
         >
-          <Text style={[styles.buttonText, { color: Colors.Black }]}>Have Used App Before ?</Text>
+          <Text style={[styles.buttonText, { color: Colors.Black }]}>Bạn đã từng sử dụng app trước đây?</Text>
         </TouchableOpacity>
 
       </View>

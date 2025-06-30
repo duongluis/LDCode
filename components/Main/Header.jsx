@@ -17,7 +17,7 @@ export default function Header() {
                     fontFamily: 'outfit-bold',
                     fontSize: 25,
 
-                }}>Chào mừng bạn {userDetail?.name}</Text>
+                }}>Chào mừng bạn, {userDetail?.name}</Text>
                 {console.log("userDetail", userDetail)}
                 <Text style={{
                     fontFamily: 'outfit',

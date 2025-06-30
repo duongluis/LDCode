@@ -21,7 +21,9 @@ export default function profile() {
   return (
     <View>
       <HeaderView text={"Profile"} />
-      <TouchableOpacity onPress={() => { }}>
+      <TouchableOpacity onPress={() => {
+router.push('/personalView');
+       }}>
         <View style={styles.container}>
         <Text>Thông tin cá nhân</Text>
         
@@ -30,7 +32,9 @@ export default function profile() {
 
       <TouchableOpacity style={
         styles.container}
-        onPress={() => { }}>
+        onPress={() => {
+          router.push('/progressView');
+         }}>
 
         <Text >Tiến trình</Text>
 

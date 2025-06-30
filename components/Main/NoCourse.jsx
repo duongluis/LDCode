@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router';
+import { useNavigation, useRouter } from 'expo-router';
 import React from 'react';
 import { Text, View } from 'react-native';
 import Button from '../Shared/Button';
@@ -6,6 +6,7 @@ import Button from '../Shared/Button';
 
 export default function NoCourse() {
   const router = useRouter();
+  const navigation = useNavigation();
   return (
     <View style={{
         marginTop:40,
@@ -14,12 +15,13 @@ export default function NoCourse() {
     }}>
       <Text style={{
         fontFamily: 'outfit-bold',
-        fontSize:25,
+        fontSize:20,
         textAlign:'center'
         
-        }}>You don't have any course</Text>
+        }}>Bạn chưa có khóa học nào cả {'\n'} Nhấn vào nút bên dưới để xem khóa học nha</Text>
+        
 
-        <Button text={'+ Add New Course'} onPress={()=>router.push('/addCourse')}/>
+        <Button text={'Xem danh sách khóa học'} onPress={()=>navigation.navigate('course')}/>
 
     </View>
   )

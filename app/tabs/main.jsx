@@ -7,14 +7,14 @@ import PracticeSection from '@/constant/PracticeSection';
 import { UserDetailContext } from '@/context/UserDetailContext';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 
 export default function main() {
     const [coursesList, setCoursesList] = useState([]);
     const { userDetail, setUserDetail } = useContext(UserDetailContext);
 
     useEffect(() => {
-      userDetail && GetCourseList()
+        userDetail && GetCourseList()
     }, [userDetail]);
 
     const GetCourseList = async () => {
@@ -42,11 +42,15 @@ export default function main() {
             backgroundColor: Colors.White
         }}>
             <Header />
-            {coursesList?.length === 0 ? <NoCourse />
-                :
+            {coursesList?.length === 0 ?
+                
+                <NoCourse />:
                 <View>
                     <PracticeSection />
-                    <CourseList courseList={coursesList} />
+                    <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
+                        Khóa học đang tham gia
+                    </Text>
+                    <CourseList courseList={coursesList} direct={"row"}/>
                 </View>
             }
         </View>

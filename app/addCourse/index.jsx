@@ -217,10 +217,10 @@ export default function addCourse() {
             <Text style={{
                 fontFamily: 'outfit-bold',
                 fontSize: 30
-            }}>Here is the place where we add course</Text>
-            <Text> What you want to learn</Text>
+            }}>Đây là trang dùng để tạo khóa học</Text>
+            <Text> Nhập môn học bạn muốn học</Text>
 
-            <TextInput placeholder='Ex. Learn Javascript'
+            <TextInput placeholder='Ex. Javascript cơ bản'
                 style={[styles.textInput]}
                 numberOfLines={3}
                 onChangeText={(value) => setUserInput(value)} />
@@ -230,7 +230,7 @@ export default function addCourse() {
 
             >
                 {!isLoading ?
-                    <Text style={styles.buttonText}>Search</Text> :
+                    <Text style={styles.buttonText}>Tạo khóa học</Text> :
                     <ActivityIndicator size={'large'} color={Colors.Default} />}
             </TouchableOpacity>
         </View>

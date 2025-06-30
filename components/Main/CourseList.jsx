@@ -6,17 +6,18 @@ import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function CourseList({ courseList }) {
+export default function CourseList({ courseList, direct }) {
     const router = useRouter();
     return (
-        <View >
-            <Text style={{ fontSize: 24, fontWeight: 'bold'}}>
-                Khóa học đang tham gia
-            </Text>
-            <View style={{ flexDirection: 'row', marginTop: 10 }}>
+        <View>
+        {/* <Text style={{ fontSize: 24, fontWeight: 'bold'}}>
+                 Khóa học đang tham gia
+             </Text> */}
+            <View style={{ flexDirection: "row", marginTop: 10 }}>
                 <FlatList
                     data={courseList}
-                    horizontal={true}
+                    horizontal={direct=="row"}
+                    scrollEnabled={false}
                     showsHorizontalScrollIndicator={false}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
