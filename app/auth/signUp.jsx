@@ -4,7 +4,8 @@ import { router } from 'expo-router';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useContext, useState } from 'react';
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { auth, db } from '../../config/firebaseConfig';
 import Colors from '../../constant/Colors';
 
@@ -20,16 +21,21 @@ export default function signUp() {
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (resp) => {
                 const user = resp.user;
-                await SaveUser(user);
+                if (username != "null" || email != "null" || password != "null") {
+                    await SaveUser(user);
+                } else {
+                    Alert.alert("Vui lòng nhập đầy đủ thông tin người dùng");
+                }
+
 
             })
             .catch(e => {
-                Alert.alert(e.message)
+                Alert.alert("Bạn chưa đăng ký thành công, vui lòng kiểm tra thông tin và thử lại")
             })
     }
 
     const SaveUser = async (user) => {
-        const courses =[]
+        const courses = []
         const data = {
             name: username,
             email: email,
@@ -40,7 +46,7 @@ export default function signUp() {
         }
 
         await setDoc(doc(db, 'users', email), data)
-        
+
         // console.log("user detail : ", data);
         setUserDetail(data);
 
@@ -52,31 +58,33 @@ export default function signUp() {
             display: 'center',
             alignItems: 'center',
             paddingTop: 100,
-            flex: 1,
-            backgroundColor: Colors.White
+            backgroundColor: Colors.White,
+            height:Dimensions.get('screen').height,
         }}>
             <Image source={require('./../../assets/images/LDcode.png')}
                 style={{
                     width: '100%',
                     height: 300,
-                    marginTop: 70
                 }} />
             <Text style={{
                 fontSize: 30,
                 fontFamily: 'outfit-bold',
                 color: Colors.Black,
                 textAlign: 'center'
-            }}>Dang ki tai khoan</Text>
+            }}>Đăng ký tài khoản</Text>
 
-            <TextInput placeholder='User Name' value={username} onChangeText={(value) => setUsername(value)} style={styles.textInput} />
-            <TextInput placeholder='Email' value={email} onChangeText={(value) => setEmail(value)} style={styles.textInput} />
-            <TextInput placeholder='Password' value={password} onChangeText={(value) => setPassword(value)} style={styles.textInput} />
+            <KeyboardAwareScrollView enableOnAndroid={true} extraScrollHeight={20} showsHorizontalScrollIndicator={false}>
+
+                <TextInput autoFocus={true} placeholder='Tên người dùng' value={username} onChangeText={(value) => setUsername(value)} style={styles.textInput} />
+                <TextInput placeholder='Email' value={email} onChangeText={(value) => setEmail(value)} style={styles.textInput} />
+                <TextInput placeholder='Mật khẩu' value={password} onChangeText={(value) => setPassword(value)} style={styles.textInput} />
+            </KeyboardAwareScrollView>
 
             <TouchableOpacity style={styles.button}
                 onPress={() => {
                     CreateNewAccount();
                 }}>
-                <Text style={styles.buttonText}>Sign Up</Text>
+                <Text style={styles.buttonText}>Đăng ký</Text>
 
             </TouchableOpacity>
         </View>
@@ -85,21 +93,20 @@ export default function signUp() {
 
 const styles = StyleSheet.create({
     button: {
-        padding: 10,
         backgroundColor: Colors.Default,
-        marginTop: 50,
+        marginTop: 20,
         borderRadius: 15
     },
     buttonText: {
         fontSize: 18,
         fontWeight: 'bold',
-        textAlign: 'center'
+        textAlign: 'center',
+        color:Colors.White
     },
     textInput: {
         minWidth: 200,
         maxWidth: 300,
         textInput: '100%',
-        paddingTop: 10,
         borderWidth: 1,
         borderRadius: 5,
         fontSize: 16,

@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import React, { useContext, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Colors from './../../constant/Colors';
 
 export default function SignIn() {
@@ -44,8 +45,6 @@ export default function SignIn() {
         <View style={{
             display: 'center',
             alignItems: 'center',
-            paddingTop: 100,
-            flex: 1,
             blackgroundColor: Colors.White
         }}>
 
@@ -57,15 +56,15 @@ export default function SignIn() {
 
             <Text style={{
                 fontSize: 30,
-                marginTop: 100,
+                marginTop: 50,
                 fontFamily: 'outfit-bold',
                 color: Colors.Black,
                 textAlign: 'center'
-            }}>Dang nhap</Text>
-
-            <TextInput placeholder='Email' value={email} onChangeText={(value) => setEmail(value)} style={styles.textInput} />
-            <TextInput placeholder='Password' value={password} onChangeText={(value) => setPassword(value)} secureTextEntry={true} style={styles.textInput} />
-
+            }}>Đăng nhập</Text>
+            <KeyboardAwareScrollView enableOnAndroid={true} extraScrollHeight={20} showsHorizontalScrollIndicator={false}>
+                <TextInput placeholder='Email' value={email} onChangeText={(value) => setEmail(value)} style={styles.textInput} />
+                <TextInput placeholder='Mật khẩu' value={password} onChangeText={(value) => setPassword(value)} secureTextEntry={true} style={styles.textInput} />
+            </KeyboardAwareScrollView>
             <TouchableOpacity
                 style={styles.button}
                 disabled={loading}
@@ -73,15 +72,15 @@ export default function SignIn() {
                     signInByClick()
                 }}>
                 {!loading ?
-                    <Text style={styles.buttonText}>Sign In</Text> :
+                    <Text style={styles.buttonText}>Đăng nhập</Text> :
                     <ActivityIndicator size={'large'} color={Colors.Default} />
                 }
 
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button}>
-                <Text>Sign In with Google </Text>
-            </TouchableOpacity>
+            {/* <TouchableOpacity style={styles.button}>
+                <Text>Đăng nhập với Google </Text>
+            </TouchableOpacity> */}
 
         </View>
     )

@@ -3,13 +3,14 @@ import Header from '@/components/Main/Header';
 import NoCourse from '@/components/Main/NoCourse';
 import { db } from '@/config/firebaseConfig';
 import Colors from '@/constant/Colors';
-import PracticeSection from '@/constant/PracticeSection';
 import { UserDetailContext } from '@/context/UserDetailContext';
+import { useRouter } from 'expo-router';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 
 export default function main() {
+    const router = useRouter();
     const [coursesList, setCoursesList] = useState([]);
     const { userDetail, setUserDetail } = useContext(UserDetailContext);
 
@@ -31,26 +32,25 @@ export default function main() {
 
         });
         setCoursesList(courses);
-
     }
 
     return (
         <View style={{
-            padding: 25,
             paddingTop: 45,
             flex: 1,
             backgroundColor: Colors.White
         }}>
-            <Header />
+
+            <Header style={{ flex: 90 }} />
+
             {coursesList?.length === 0 ?
-                
-                <NoCourse />:
+
+                <NoCourse /> :
                 <View>
-                    <PracticeSection />
-                    <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
-                        Khóa học đang tham gia
+                    {/* <PracticeSection /> */}
+                    <Text style={{ fontSize: 24, fontWeight: 'bold' }}>  Khóa học đang tham gia
                     </Text>
-                    <CourseList courseList={coursesList} direct={"row"}/>
+                    <CourseList courseList={coursesList} direct={"row"} />
                 </View>
             }
         </View>

@@ -1,17 +1,19 @@
 import Colors from '@/constant/Colors';
+import { UserDetailContext } from '@/context/UserDetailContext';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
-import React from 'react';
+import React, { useContext } from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function Chapters(course) {
   const router = useRouter();
+  const {userDetail,setUserDetail} = useContext(UserDetailContext);
   // console.log(" chapters : ", course?.course?.chapters);
 
   const isChapterCompleted = (index) => {
     const isCompleted = course?.course?.completed_chapters?.includes(index.toString());
-    console.log("checking : ", course?.course?.completed_chapters);
+    console.log("checking : ", course);
     return isCompleted ? true : false;
   }
   return (
@@ -22,7 +24,7 @@ export default function Chapters(course) {
       <View style={{ flexDirection: 'row', marginTop: 10 }}>
         <FlatList
           data={course?.course.chapters}
-
+          scrollEnabled={false}
           keyExtractor={(item) => item.chapter_id}
           renderItem={({ item, index }) => (
             <TouchableOpacity
@@ -53,9 +55,8 @@ export default function Chapters(course) {
 
 const styles = StyleSheet.create({
   courseContainer: {
-    flex: 1,
     padding: 10,
-    margin: 10,
+    marginTop: 10,
     flexDirection: 'row',
     alignItems: 'left',
     borderRadius: 10,

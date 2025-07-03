@@ -22,11 +22,28 @@ export default function Index() {
     }
   })
 
+// useEffect(() => {
+//   const auth = getAuth();
+//   let unsubscribe;
+
+//   const checkAuthOnce = async () => {
+//     // Chỉ lắng nghe 1 lần rồi hủy ngay
+//     unsubscribe = onAuthStateChanged(auth, (user) => {
+//       console.log("Auth state changed (once)");
+//       unsubscribe(); // Hủy ngay sau khi chạy
+//     });
+//   };
+
+//   checkAuthOnce();
+
+//   return () => {
+//     if (unsubscribe) unsubscribe();
+//   };
+// }, []);
 
   return (
     <View
       style={{
-        flex: 1,
         backgroundColor: Colors.White
       }}>
 
@@ -46,14 +63,14 @@ export default function Index() {
       }}>
 
         <Text style={{
-          fontSize: 30,
+          fontSize: 25,
           fontFamily: 'outfit-bold',
           color: Colors.White,
           textAlign: 'center'
         }}>Chào mừng đến với LDCode</Text>
 
         <Text style={{
-          paddingTop: 150,
+          paddingTop: 100,
           fontSize: 25,
           fontFamily: 'outfit-bold',
           color: Colors.White,
@@ -81,7 +98,6 @@ export default function Index() {
         >
           <Text style={[styles.buttonText, { color: Colors.Black }]}>Bạn đã từng sử dụng app trước đây?</Text>
         </TouchableOpacity>
-
       </View>
     </View>
   );

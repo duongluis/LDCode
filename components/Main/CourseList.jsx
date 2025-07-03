@@ -17,7 +17,7 @@ export default function CourseList({ courseList, direct }) {
                 <FlatList
                     data={courseList}
                     horizontal={direct=="row"}
-                    scrollEnabled={false}
+                    scrollEnabled={direct=="row"}
                     showsHorizontalScrollIndicator={false}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
@@ -25,8 +25,10 @@ export default function CourseList({ courseList, direct }) {
                             key={item.id}
                             onPress={() => 
                                 router.push({
-                                    pathname:'/courseView',
-                                    params: { courseParam: JSON.stringify(item) }
+                                    pathname:'/courseView/'+item?.id,
+                                    params: { 
+                                        courseParam: JSON.stringify(item),
+                                     }
                             })}
                             style={styles.courseContainer}>
                             <Image source={ImageAsset[item?.banner_image]} style={styles.banner_image} />

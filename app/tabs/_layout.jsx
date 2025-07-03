@@ -1,9 +1,11 @@
+import { UserDetailContext } from '@/context/UserDetailContext';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Tabs } from 'expo-router';
-import React from 'react';
+import React, { useContext } from 'react';
 
 export default function TabLayout() {
+  const {userDetail,setUserDetail}=useContext(UserDetailContext);
   return (
     <Tabs>
       <Tabs.Screen name="main"
@@ -30,6 +32,14 @@ export default function TabLayout() {
             <AntDesign name="user" size={24} color={color} />
           )
         }} />
+    {/* {userDetail?.member=="true"?
+    <Tabs.Screen name="member"
+        options={{
+          tabBarIcon: (color,size) => (
+            <AntDesign name="user" size={24} color={color} />
+          )
+        }} />:console.log("no permission")} */}
     </Tabs>
+    
   )
 }

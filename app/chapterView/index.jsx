@@ -33,7 +33,7 @@ export default function ChapterDetail() {
         completed_chapters: (arrayUnion(chapterIndex))
       })
 
-    router.back();
+    router.replace('/courseView/'+chapter?.doc_id.toString());
   }
 
   return (
