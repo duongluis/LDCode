@@ -1,7 +1,9 @@
 import Prompt from "@/constant/Prompt";
 import axios from 'axios';
 
+// const API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
 const API_KEY = 'AIzaSyAuq5AcMBZ6e3-uhE7a2c9hJXeFOHaviF0';
+
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`;
 
 export const generateCourseContent = async (topic) => {

@@ -7,10 +7,10 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 
 export default function TaskList({ taskList }) {
     const router = useRouter();
-console.log("TaskList : ",taskList[0]?.exercises.length|| 0);
+console.log("TaskList : ",taskList[0]?.exercises[0].questions?.length|| 0);
 
-const GetLengthObject =async ()=> {
-    return await taskList[0]?.exercises.length;
+const GetLengthObject =async (item)=> {
+    return await item?.exercises[0].questions.length;
 }
 
     return (
@@ -18,8 +18,9 @@ const GetLengthObject =async ()=> {
             <Text style={{ fontSize: 24, fontWeight: 'bold'}}>
                 Danh sách bài tập
             </Text>
-            <View style={{ flexDirection: 'row', marginTop: 10 }}>
+            <View style={{ flexDirection: 'row', marginTop: 10, }}>
                 <FlatList
+                numColumns={2}
                     data={taskList}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
@@ -29,7 +30,7 @@ const GetLengthObject =async ()=> {
                                 router.push({
                                     pathname:'/taskView',
                                     params: { 
-                                    taskParam: JSON.stringify(item),
+                                    taskParam: JSON.stringify(item?.exercises[0]),
                                     // doc_id:item.id,
                                     // index:index,
                                     }
@@ -37,7 +38,7 @@ const GetLengthObject =async ()=> {
                             style={styles.courseContainer}>
                             <Image source={PracticeOption[0].image} style={styles.banner_image} />
                             <Text>{item.title}</Text>
-                            <Text>{GetLengthObject()} bài</Text>
+                            <Text>{GetLengthObject(item)} bài</Text>
 
                         </TouchableOpacity>
                     )}

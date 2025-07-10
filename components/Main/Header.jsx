@@ -1,7 +1,9 @@
+import Colors from '@/constant/Colors';
 import { UserDetailContext } from '@/context/UserDetailContext';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { useRouter } from 'expo-router';
 import React, { useContext } from 'react';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 export default function Header() {
     const { userDetail, setUserDetail } = useContext(UserDetailContext);
@@ -26,9 +28,9 @@ export default function Header() {
                     fontSize: 20
                 }}>  Hãy bắt đầu học thôi !</Text>
             </View>
-                {/* <Pressable onPress={()=>{router.push('/questionView')}} style={{borderRadius:10,justifyContent:'flex-end'}}>
-                    <AntDesign name="questioncircle" size={30} color="black" />
-                </Pressable> */}
+                <Pressable onPress={()=>{router.push('/questionView')}} style={{borderRadius:25}}>
+                    <AntDesign name="questioncircle" size={50} color={Colors.Black} />
+                </Pressable>
         </View>
     )
 }

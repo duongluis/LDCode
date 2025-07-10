@@ -2,3 +2,10 @@
 + Thêm các câu hỏi dưới dạng nút bấm
 + Thêm các câu trả lời có sẵn giúp hỗ trợ cho câu hỏi ở trên
 2. 
+Nói rõ đề tài là gì (phát triển app học lâp trình trên đt) ->nêu khảo sát các app hiện có 
+-> nêu vấn đề của các app hiện có -> giải quyết vấn đề của các app -> triển khai kết quả 
+-> nêu ưu điểm ( các chức năng ) của app -> nhược điểm của app  
+( khi quá trình học bài hoàn thành, khóa học sẽ cập nhật bài học đã hoàn thành bằng cách tích hoàn thành)
+( Nêu vai trò của người dùng sử dụng ứng dụng là admin, người được quyền tạo khóa học, xem thành viên và nhóm người dùng thứ hai là người dùng, những người có thể xem tiến độ )
+( Sau khi tham gia khóa học , người dùng có thể tham gia làm bài tập bằng cách chọn sang phần task và chọn vào bài tập hiện có .)
+( Phần này em chưa phát triển được và em sẽ cải thiện chức năng này trong tương lai )

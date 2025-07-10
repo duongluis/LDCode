@@ -10,26 +10,34 @@ import { ScrollView, Text } from 'react-native';
 export default function course() {
   const router = useRouter();
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
- const [coursesList, setCoursesList] = useState([]);
+  const [coursesList, setCoursesList] = useState([]);
 
-   useEffect(() => {
-          userDetail && GetCourseList()
-      }, [userDetail]);
-  
-      const GetCourseList = async () => {
-          // console.log("user da hoan thanh courselist :", userDetail?.name);
-          const courses = [];
-          const q = collection(db, 'courses');
-          const querySnapshot = await getDocs(q);
-          querySnapshot.forEach((doc) => {
-              // doc.data() is never undefined for query doc snapshots
-              courses.push({
-                  id: doc.id,
-                  ...doc.data(),
-              });
-          });
-          setCoursesList(courses);
-        }
+  useEffect(() => {
+    userDetail && GetCourseList()
+  }, [userDetail]);
+
+  const GetCourseList = async () => {
+    // console.log("user da hoan thanh courselist :", userDetail?.name);
+    const courses = [];
+    const q = collection(db, 'courses');
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      courses.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+    
+    const unenrolledCourses = courses.filter(course => 
+    !userDetail?.courses?.some(userCourse => 
+      userCourse.id === course.id
+    ))
+
+    setCoursesList(unenrolledCourses);
+  }
+
+    
 
   return (
     <ScrollView>
@@ -39,7 +47,7 @@ export default function course() {
           Danh sách khóa học
         </Text>
       }
-        <CourseList courseList={coursesList} direct={"column"} />
+      <CourseList courseList={coursesList} direct={"column"} fromMain={"false"} />
     </ScrollView>
   )
 }

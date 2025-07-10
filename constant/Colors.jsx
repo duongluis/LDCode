@@ -5,5 +5,5 @@ export default {
     LightGray:'#f5f5f5',
     Blue:'#0000FF',
     LightBlue: '#1e90ff',
-    LightPurple:''
+    Green:'#76FC01',
 }

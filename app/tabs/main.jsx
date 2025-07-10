@@ -5,7 +5,7 @@ import { db } from '@/config/firebaseConfig';
 import Colors from '@/constant/Colors';
 import { UserDetailContext } from '@/context/UserDetailContext';
 import { useRouter } from 'expo-router';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 
@@ -19,19 +19,35 @@ export default function main() {
     }, [userDetail]);
 
     const GetCourseList = async () => {
-        // console.log("user da hoan thanh courselist :", userDetail?.name);
+        console.log("user da hoan thanh courselist :", userDetail?.email, " and ", typeof (userDetail?.email));
         const courses = [];
-        const q = query(collection(db, 'courses'), where("createdBy", "==", userDetail?.email));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            courses.push({
-                id: doc.id,
-                ...doc.data(),
-            });
 
-        });
+        if (userDetail?.member) {
+            const q = collection(db, 'courses');
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                courses.push({
+                    id: doc.id,
+                    ...doc.data(),
+                });
+            });
+            console.log("course tu admin : ", courses);
+        }
+        else {
+            const q = doc(db, 'users', userDetail?.email);
+            const querySnapshot = await getDoc(q);
+            console.log("Query Snapshot :", querySnapshot.data().courses);
+            const userCourses = querySnapshot.data().courses;
+            userCourses.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                courses.push(doc);
+
+            });
+            console.log("course tu nguoi dung : ", courses);
+        }
         setCoursesList(courses);
+
     }
 
     return (
@@ -43,14 +59,13 @@ export default function main() {
 
             <Header style={{ flex: 90 }} />
 
-            {coursesList?.length === 0 ?
-
+            {coursesList?.length === 0?
                 <NoCourse /> :
                 <View>
                     {/* <PracticeSection /> */}
                     <Text style={{ fontSize: 24, fontWeight: 'bold' }}>  Khóa học đang tham gia
                     </Text>
-                    <CourseList courseList={coursesList} direct={"row"} />
+                    <CourseList courseList={coursesList} direct={"row"} fromMain={"true"} />
                 </View>
             }
         </View>

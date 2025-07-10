@@ -13,7 +13,7 @@ export default function Chapters(course) {
 
   const isChapterCompleted = (index) => {
     const isCompleted = course?.course?.completed_chapters?.includes(index.toString());
-    console.log("checking : ", course);
+    // console.log("checking : ", course?.course.chapters);
     return isCompleted ? true : false;
   }
   return (
@@ -34,7 +34,7 @@ export default function Chapters(course) {
                   pathname: '/chapterView',
                   params: {
                     chapterParam: JSON.stringify(item),
-                    docId: item,
+                    docId: item.doc_id,
                     chapterIndex: index,
                   }
                 })}
@@ -43,7 +43,7 @@ export default function Chapters(course) {
 
               {!isChapterCompleted(index) ?
                 <Ionicons name="arrow-forward" size={32} color={Colors.White} /> :
-                <AntDesign name="checkcircle" size={24} color={Colors.Black} />
+                <AntDesign name="checkcircle" size={24} color={Colors.Green} />
               }
             </TouchableOpacity>
           )}

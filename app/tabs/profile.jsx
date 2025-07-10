@@ -4,48 +4,42 @@ import Colors from '@/constant/Colors';
 import { UserDetailContext } from '@/context/UserDetailContext';
 import { useRouter } from 'expo-router';
 import { getAuth, signOut } from 'firebase/auth';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Alert, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function profile() {
   const router = useRouter();
+  const [courseList,setCoursesList]=useState([]);
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
 
-  console.log("check member : " ,userDetail?.member," ",typeof(userDetail?.member));
-  const LogOut= () => {
-    // const auth = getAuth();
-    // try {
-    //   await signOut(auth).then(()=>{router.replace('/');
-    //   console.log('Logout successful');}
-    // )} catch (error) {
-    //   console.error('Logout error:', error);
-    // }
-      Alert.alert(
-    'Xác nhận đăng xuất',
-    'Bạn có chắc chắn muốn đăng xuất?',
-    [
-      {
-        text: 'Hủy',
-        style: 'cancel',
-      },
-      {
-        text: 'Đăng xuất',
-        onPress: async () => {
-          const auth = getAuth();
-          await signOut(auth)
-            .then(() => {
-              router.replace('/');
-              console.log('Đăng xuất thành công');
-            })
-            .catch((error) => console.log('Lỗi đăng xuất:', error));
+  // console.log("check member : " ,userDetail?.member," ",typeof(userDetail?.member));
+  const LogOut = () => {
+    Alert.alert(
+      'Xác nhận đăng xuất',
+      'Bạn có chắc chắn muốn đăng xuất?',
+      [
+        {
+          text: 'Hủy',
+          style: 'cancel',
         },
-        style: 'destructive',
-      },
-    ],
-    { cancelable: true }
-  );
-};
-  
+        {
+          text: 'Đăng xuất',
+          onPress: async () => {
+            const auth = getAuth();
+            await signOut(auth)
+              .then(() => {
+                router.replace('/');
+                console.log('Đăng xuất thành công');
+              })
+              .catch((error) => console.log('Lỗi đăng xuất:', error));
+          },
+          style: 'destructive',
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+
   return (
     <View>
       <HeaderView text={"Thông tin cá nhân"} />
@@ -61,14 +55,21 @@ export default function profile() {
       <TouchableOpacity style={
         styles.container}
         onPress={() => {
-          router.push('/progressView');
+          router.push(
+            {
+              pathname:'/progressView',
+              params:{
+                courseList:JSON.stringify(userDetail?.courses),
+                direct:"column",
+              }
+            })
         }}>
 
         <Text >Tiến trình</Text>
 
       </TouchableOpacity>
 
-      {userDetail?.member? <TouchableOpacity style={
+      {userDetail?.member ? <TouchableOpacity style={
         styles.container}
         onPress={() => {
           router.push('/userListView');

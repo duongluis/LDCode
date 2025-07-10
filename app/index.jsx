@@ -3,43 +3,24 @@ import { UserDetailContext } from '@/context/UserDetailContext';
 import { useRouter } from "expo-router";
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Colors from "../constant/Colors";
-
 
 export default function Index() {
 
   const router = useRouter();
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
 
   onAuthStateChanged(auth, async (users) => {
     if (users) {
       const result = await getDoc(doc(db, 'users', users?.email));
       setUserDetail(result.data());
-      router.replace('/tabs/main')
+      router.replace('/tabs/main');
     }
   })
-
-// useEffect(() => {
-//   const auth = getAuth();
-//   let unsubscribe;
-
-//   const checkAuthOnce = async () => {
-//     // Chỉ lắng nghe 1 lần rồi hủy ngay
-//     unsubscribe = onAuthStateChanged(auth, (user) => {
-//       console.log("Auth state changed (once)");
-//       unsubscribe(); // Hủy ngay sau khi chạy
-//     });
-//   };
-
-//   checkAuthOnce();
-
-//   return () => {
-//     if (unsubscribe) unsubscribe();
-//   };
-// }, []);
 
   return (
     <View
@@ -96,7 +77,7 @@ export default function Index() {
         }]}
           onPress={() => router.push('/auth/signIn')}
         >
-          <Text style={[styles.buttonText, { color: Colors.Black }]}>Bạn đã từng sử dụng app trước đây?</Text>
+          <Text style={[styles.buttonText, { color: Colors.White }]}>Bạn đã từng sử dụng app trước đây?</Text>
         </TouchableOpacity>
       </View>
     </View>
