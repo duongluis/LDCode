@@ -8,4 +8,14 @@ Nói rõ đề tài là gì (phát triển app học lâp trình trên đt) ->n�
 ( khi quá trình học bài hoàn thành, khóa học sẽ cập nhật bài học đã hoàn thành bằng cách tích hoàn thành)
 ( Nêu vai trò của người dùng sử dụng ứng dụng là admin, người được quyền tạo khóa học, xem thành viên và nhóm người dùng thứ hai là người dùng, những người có thể xem tiến độ )
 ( Sau khi tham gia khóa học , người dùng có thể tham gia làm bài tập bằng cách chọn sang phần task và chọn vào bài tập hiện có .)
-( Phần này em chưa phát triển được và em sẽ cải thiện chức năng này trong tương lai )
+( Phần này em chưa phát triển được và em sẽ cải thiện chức năng này trong tương lai .)
+
+
+a@gmail.com
+Duongluis99
+
+Lập trình C# với 5 chương
+
+Ngô Thái Dương
+ntduong@gmail.com
+123456

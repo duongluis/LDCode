@@ -25,13 +25,13 @@ export default function Intro({ course, joined }) {
         );
 
         if (!courseExists) {
-            
+
             setUserDetail(prev => ({
                 ...prev,
                 courses: [...prev.courses, course]
             }));
 
-            console.log("userDetail sau khi them khoa hoc : ",userDetail?.courses);
+            console.log("userDetail sau khi them khoa hoc : ", userDetail?.courses);
             await updateDoc(user, {
                 courses: arrayUnion(course)
             });
@@ -40,7 +40,7 @@ export default function Intro({ course, joined }) {
         router.push('/tabs/main');
     }
     return (
-        <View>
+        <View style={{ width: '100%' }}>
             <Pressable onPress={() => {
                 router.replace('/tabs/main');
             }}>
@@ -48,14 +48,21 @@ export default function Intro({ course, joined }) {
             </Pressable>
             <Image source={ImageAsset[course?.banner_image]}
                 style={styles.banner_image} />
-            <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 20, justifyContent: 'center', }}>
-                {course?.title}
-            </Text>
+            <View style={{ alignItems: 'center' }}>
+                <Text style={{
+                    fontSize: 24,
+                    fontWeight: 'bold',
+                    marginTop: 20,
+                    textAlign: 'center'
+                }}>
+                    {course?.title}
+                </Text>
+            </View>
 
             <Text style={{ fontSize: 20, marginTop: 10, fontFamily: 'outfit-bold' }}>
                 Mô tả khóa học:
             </Text>
-            <Text style={{ fontSize: 16, marginTop: 10, marginLeft: 10, width: "100%" }}>
+            <Text style={{ fontSize: 16, marginTop: 10, marginLeft: 10, width: "95%" }}>
                 {course?.description}
 
             </Text>

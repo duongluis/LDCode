@@ -78,6 +78,12 @@ export default function ChapterDetail() {
       });
 
       console.log("Đã cập nhật chương hoàn thành!");
+      
+      setUserDetail(prev => ({
+      ...prev,
+      courses: courses
+    }));
+
       router.replace({
         pathname: '/courseView/' + chapter?.doc_id.toString(),
         params: {
@@ -112,7 +118,7 @@ export default function ChapterDetail() {
             fontSize: 30,
             fontFamily: 'outfit-bold',
             color: Colors.Black,
-            textAlign: 'center'
+            textAlign: 'center',
 
           }}>{chapter?.lessons[currentPage].lesson_title}
           </Text>

@@ -218,7 +218,7 @@ export default function addCourse() {
                 fontFamily: 'outfit-bold',
                 fontSize: 30
             }}>Đây là trang dùng để tạo khóa học</Text>
-            <Text> Nhập môn học bạn muốn học</Text>
+            <Text> Nhập môn học bạn muốn tạo</Text>
 
             <TextInput placeholder='Ex. Javascript cơ bản'
                 style={[styles.textInput]}

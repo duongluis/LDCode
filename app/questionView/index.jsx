@@ -10,10 +10,6 @@ export default function QuestionView() {
 
   const faqs = [
     {
-      question: "Làm cách nào để đăng ký tài khoản?",
-      answer: "Nhấn vào nút 'Đăng ký' ở màn hình chính, điền đầy đủ thông tin và chọn nút đăng ký của bạn."
-    },
-    {
       question: "Làm sao để hiển thị phần bài tập?",
       answer: "Bạn cần tham gia ít nhất 1 khóa học để có thể hiển thị phần bài tập."
     },

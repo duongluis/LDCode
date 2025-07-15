@@ -6,16 +6,16 @@ export default {
 - Generate 1 course must include:
 * short title
 * unique id
-* 2-3 line description for course
-* 5-10 chapter titles and description for each chapter with 2-3 sentences
-* each chapter has 5-7 lesson with text only 
+* 3-line description for course
+* 5 chapters with short title and description
+* each chapter has 5 to 7 lessons with text only 
 * each chapter has unique id 
 - Return STRICTLY in JSON format
 - Do not add plain text in output or markdown
-- Each Chapter has 5-10 exercises about true/false or choose the right choice 
+- Course has 5 to 7 exercises about true/false or choose the right choice 
 - Each lesson has example by text
 - each chapter has example and console and output dont have plain text 
-- max characters is 7000 characters
+- max characters is 10000 characters
 - sử dụng ngôn ngữ tiếng việt làm đầu ra ngoại trừ phần console và output
 - Create data in this EXACT JSON format:
 

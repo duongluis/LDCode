@@ -10,24 +10,32 @@ export default function TabLayout() {
     <Tabs>
       <Tabs.Screen name="main"
         options={{
+          title:"Trang chủ",
+          headerShown:false,
           tabBarIcon: (color,size) => (
             <Ionicons name="home" size={24} color={color} />
           )
         }} />
       <Tabs.Screen name="course"
         options={{
+          title:"Khóa học",
+          // headerShown:false,
           tabBarIcon: (color,size) => (
             <AntDesign name="book" size={24} color={color} />
           )
         }} />
       <Tabs.Screen name="task"
         options={{
+          title:"Bài tập",
+          // headerShown:false,
           tabBarIcon: (color,size) => (
             <AntDesign name="checkcircleo" size={24} color={color} />
           )
         }} />
       <Tabs.Screen name="profile"
         options={{
+          title:"Cá nhân",
+          headerShown:false,
           tabBarIcon: (color,size) => (
             <AntDesign name="user" size={24} color={color} />
           )

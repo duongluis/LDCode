@@ -75,7 +75,6 @@ export default function taskView() {
       <Text style={styles.title}>{task?.questions[currentTask].quest}</Text>
       <FlatList
         data={task.questions[currentTask].answers}
-        keyExtractor={item => item.id}
         renderItem={({ item: answer }) => (
           <TouchableOpacity
             // key={answer}

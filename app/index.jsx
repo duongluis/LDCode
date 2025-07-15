@@ -3,7 +3,7 @@ import { UserDetailContext } from '@/context/UserDetailContext';
 import { useRouter } from "expo-router";
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Colors from "../constant/Colors";
 
@@ -14,13 +14,58 @@ export default function Index() {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
 
-  onAuthStateChanged(auth, async (users) => {
-    if (users) {
-      const result = await getDoc(doc(db, 'users', users?.email));
-      setUserDetail(result.data());
-      router.replace('/tabs/main');
-    }
-  })
+  // onAuthStateChanged(auth, async (users) => {
+  //   if (users) {
+  //     const result = await getDoc(doc(db, 'users', users?.email));
+  //     setUserDetail(result.data());
+  //     router.replace('/tabs/main');
+  //   }
+  // })
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!isMounted) return;
+
+      try {
+        if (user) {
+          const result = await getDoc(doc(db, 'users', user.email));
+          if (isMounted) {
+            setUserDetail(result.data());
+            
+            if (router.canGoBack()) {
+              router.replace('/tabs/main');
+            } else {
+              router.push('/tabs/main');
+            }
+          }
+        } else {
+          if (isMounted) {
+            setIsCheckingAuth(false);
+          }
+        }
+      } catch (error) {
+        console.error("Error handling auth state:", error);
+        if (isMounted) {
+          setIsCheckingAuth(false);
+        }
+      }
+    });
+
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
+  }, [router, setUserDetail]);
+
+  if (isCheckingAuth) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Colors.White }}>
+        <Text>Đang kiểm tra đăng nhập...</Text>
+      </View>
+    );
+  }
 
   return (
     <View

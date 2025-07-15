@@ -13,26 +13,38 @@ export default function task() {
 
   useEffect(() => {
     GetTaskList();
-    console.log("use effect working : ",taskList);
+    console.log("use effect working : ", taskList);
   }, [GetTaskList]);
 
 
   const GetTaskList = async () => {
-    // console.log("user da hoan thanh courselist :", userDetail?.name);
+
     try {
       const tasks = [];
-      const q =await getDoc(doc(db, 'users', userDetail?.email));
-      const querySnapshot = q.data().courses;
-      // setTaskList(querySnapshot);
-      console.log("Query : ", querySnapshot);
-      querySnapshot.forEach(doc => {
-        console.log("doc.id : ",doc.id," ",doc?.title," ",doc.exercises)
-        tasks.push({
-          id: doc.id,
-          title: doc?.title,
-          exercises: doc?.exercises,
+      // if (userDetail?.member) {
+      //   const querySnapshot = await getDoc(query(db, 'courses'),where("createBy","==",userDetail?.email));
+      //   console.log(querySnapshot);
+      //   const exercises = querySnapshot.data();
+      //     exercises.forEach((exercise) => {
+      //       tasks.push({
+      //         id: exercise.id,
+      //         title: exercise.title,
+      //         ...exercise
+      //       });
+      //     });
+      //     console.log("bai tap : ", tasks);
+      // } else {
+        const q = await getDoc(doc(db, 'users', userDetail?.email));
+        const querySnapshot = q.data().courses;
+        querySnapshot.forEach(doc => {
+          console.log("doc.id : ", doc.id, " ", doc?.title, " ", doc.exercises)
+          tasks.push({
+            id: doc.id,
+            title: doc?.title,
+            exercises: doc?.exercises,
+          });
         });
-      });
+      // }
       setTaskList(tasks);
     }
     catch (error) {

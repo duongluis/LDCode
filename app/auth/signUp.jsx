@@ -1,6 +1,5 @@
 import { UserDetailContext } from '@/context/UserDetailContext';
 import { Image } from 'expo-image';
-import { router } from 'expo-router';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useContext, useState } from 'react';
@@ -50,7 +49,7 @@ export default function signUp() {
         // console.log("user detail : ", data);
         setUserDetail(data);
 
-        router.push('/auth/signIn')
+        // router.push('/auth/signIn')
     }
 
     return (
@@ -73,9 +72,10 @@ export default function signUp() {
                 textAlign: 'center'
             }}>Đăng ký tài khoản</Text>
 
-            <KeyboardAwareScrollView enableOnAndroid={true} extraScrollHeight={20} showsHorizontalScrollIndicator={false}>
+            <KeyboardAwareScrollView enableOnAndroid={true} extraScrollHeight={10} showsHorizontalScrollIndicator={false}>
 
-                <TextInput autoFocus={true} placeholder='Tên người dùng' value={username} onChangeText={(value) => setUsername(value)} style={styles.textInput} />
+                {/* <TextInput autoFocus={true} placeholder='Tên người dùng' value={username} onChangeText={(value) => setUsername(value)} style={styles.textInput} /> */}
+                <TextInput placeholder='Tên người dùng' value={username} onChangeText={(value) => setUsername(value)} style={styles.textInput} />
                 <TextInput placeholder='Email' value={email} onChangeText={(value) => setEmail(value)} style={styles.textInput} />
                 <TextInput placeholder='Mật khẩu' value={password} onChangeText={(value) => setPassword(value)} style={styles.textInput} />
             </KeyboardAwareScrollView>
@@ -93,9 +93,11 @@ export default function signUp() {
 
 const styles = StyleSheet.create({
     button: {
+        padding: 10,
         backgroundColor: Colors.Default,
-        marginTop: 20,
-        borderRadius: 15
+        // marginTop: 20,
+        borderRadius: 10,
+        marginBottom:250
     },
     buttonText: {
         fontSize: 18,
