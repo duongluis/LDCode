@@ -2,7 +2,7 @@ import Prompt from "@/constant/Prompt";
 import axios from 'axios';
 
 // const API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
-const API_KEY = 'AIzaSyB79uP3yE1sjDwl7S2TLGRklkR3W--mxP8';
+const API_KEY = '';//dien key app vao
 
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`;
 
@@ -27,9 +27,7 @@ export const generateCourseContent = async (topic) => {
             }
         );
 
-// console.log("response : ", response.data)
-
-
+        // console.log("response : ", response.data)
 
         if (!response.data?.candidates?.[0]?.content?.parts?.[0]?.text) {
             throw new Error('Invalid response structure from API');
