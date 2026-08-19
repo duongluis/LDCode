@@ -1,50 +1,36 @@
-# Welcome to your Expo app 👋
+LDCode — AI-Powered Course Generator
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile app (built with Expo / React Native) that automatically generates learning courses from a user's natural-language request, using a two-step AI generation pipeline powered by Google Gemini.
 
-## Get started
+What it does
+User input — the user describes what they want to learn (e.g. "a beginner course on JavaScript closures").
+Outline generation — the request is combined with a custom prompt template and sent to the Gemini API to produce a structured course outline (modules/lessons).
+Lesson detail generation — each outline item is then expanded into full lesson content via a second Gemini call, using a separate prompt tailored for detailed generation.
+Result — the user gets a complete, structured course generated end-to-end from a single request.
+Why a two-step pipeline instead of one call
 
-1. Install dependencies
+Generating an entire course in a single prompt tends to produce shallow or inconsistent content. Splitting generation into outline → detail keeps each Gemini call focused on one job, giving more structured and reliable output — this is the same principle behind multi-step LLM orchestration used in production AI applications.
 
-   ```bash
-   npm install
-   ```
+Prompt engineering
 
-2. Start the app
+Prompts are kept in a dedicated template file, separate from application logic. At request time, the app merges the base template with the user's specific request before calling the Gemini API. Keeping templates isolated from business logic makes them easier to iterate on and version without touching app code.
 
-   ```bash
-   npx expo start
-   ```
+Tech stack
+Framework: Expo / React Native
+Language: TypeScript / JavaScript
+AI provider: Google Gemini API
+Auth/Backend services: Firebase
+Project status
 
-In the output, you'll find options to open the app in a
+This is a personal project and a work in progress. Course generation works end-to-end, but some features are still incomplete or have known issues. Current focus areas:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+ Improve error handling for failed/partial Gemini responses
+ Add content validation before displaying generated lessons
+ Polish UI for the course generation flow
+ (Planned) Add feedback loop to let users regenerate/refine specific lessons
+Getting started
+bash
+npm install
+npx expo start
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This project uses file-based routing via Expo Router.
